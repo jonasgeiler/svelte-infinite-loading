@@ -68,4 +68,4 @@ You can find the documentation in the [repository wiki](https://github.com/Skayo
 
 ## License
 
-[MIT License](https://github.com/Skayo/svelte-infinite-loading/blob/master/LICENSE.md)
+[MIT License](https://github.com/Skayo/svelte-infinite-loading/blob/master/LICENSE)
