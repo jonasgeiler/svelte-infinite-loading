@@ -53,6 +53,7 @@
 	const throttler = {
 		timers: [],
 		caches: [],
+
 		throttle(fn) {
 			if (this.caches.indexOf(fn) === -1) {
 				// cache current handler
@@ -68,6 +69,7 @@
 				}, THROTTLE_LIMIT));
 			}
 		},
+
 		reset() {
 			// reset all timers
 			this.timers.forEach((timer) => {
@@ -85,6 +87,7 @@
 		isChecked: false,
 		timer:     null,
 		times:     0,
+
 		track() {
 			// record track times
 			this.times += 1;
@@ -106,15 +109,18 @@
 
 	const scrollBarStorage = {
 		key: '_infiniteScrollHeight',
+
 		getScrollElm(elm) {
 			return elm === window ? document.documentElement : elm;
 		},
+
 		save(elm) {
 			const target = this.getScrollElm(elm);
 
 			// save scroll height on the scroll parent
 			target[this.key] = target.scrollHeight;
 		},
+
 		restore(elm) {
 			const target = this.getScrollElm(elm);
 
@@ -125,6 +131,7 @@
 
 			this.remove(target);
 		},
+
 		remove(elm) {
 			if (elm[this.key] !== undefined) {
 				// remove scroll height
