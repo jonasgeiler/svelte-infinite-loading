@@ -58,7 +58,7 @@
 		</div>
 	{/each}
 
-	<InfiniteLoading on:infinite={infiniteHandler} identifier={infiniteId} />
+	<InfiniteLoading on:infinite={infiniteHandler} identifier={infiniteId} spinner="circles" />
 </div>
 
 <style>
@@ -84,6 +84,13 @@
 		font-size: 14px;
 		font-weight: bold;
 		vertical-align: middle;
+	}
+	.hacker-news-header select {
+		float: right;
+		color: #fff;
+		background-color: transparent;
+		border: 1px solid #fff;
+		outline: none;
 	}
 	.hacker-news-item {
 		margin: 10px 0;

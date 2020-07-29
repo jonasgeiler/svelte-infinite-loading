@@ -209,7 +209,7 @@
 		},
 	};
 
-	$: if(mounted) stateChanger.reset(identifier /* pass as argument to watch changes */);
+	$: if (mounted) stateChanger.reset(identifier /* pass as argument to watch changes */);
 
 	function scrollHandler(event) {
 		if (status === STATUS.READY) {
