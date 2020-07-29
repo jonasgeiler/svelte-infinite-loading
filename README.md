@@ -45,17 +45,25 @@ $ npm i -g pnpm
 $ pnpm install svelte-infinite-loading
 ```
 
+### Sapper
 
-## Documentation
+If you're using this component in a Sapper application,
+make sure to install the package to `devDependencies` rather than `dependencies`!  
+[More Details](https://github.com/sveltejs/sapper-template#using-external-components)
 
-You can find the documentation in the [repository wiki](https://github.com/Skayo/svelte-infinite-loading/wiki)
 
-
-## Examples
+## Examples / Demo
 
 - [Hacker News](https://svelte.dev/repl/c053fb0b13154b07a503ac04e0cb2c66)
 - [Hacker News with Filter](https://svelte.dev/repl/73d404d5a26a47db969c4ebc154e8079)
 - [Hacker News with Top Direction](https://svelte.dev/repl/9a04b19fcf5f4da0bead27f1cdf55cfb)
+
+For more information on how to use this library, check the [documentation](https://github.com/Skayo/svelte-infinite-loading/wiki)!
+
+
+## Documentation
+
+You can find the documentation in the [repository wiki](https://github.com/Skayo/svelte-infinite-loading/wiki)
 
 
 ## License
