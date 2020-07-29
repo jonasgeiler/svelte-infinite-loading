@@ -29,6 +29,9 @@ This is heavily inspired by [vue-infinite-loading](https://peachscript.github.io
 
 ## Install
 
+> If you're using this component in a Sapper application, make sure to install the package to `devDependencies`!  
+> [More Details](https://github.com/sveltejs/sapper-template#using-external-components)
+
 With npm:
 ```shell
 $ npm install svelte-infinite-loading
@@ -44,12 +47,6 @@ Or, what I would recommend, with [pnpm](https://pnpm.js.org/):
 $ npm i -g pnpm
 $ pnpm install svelte-infinite-loading
 ```
-
-### Sapper
-
-If you're using this component in a Sapper application,
-make sure to install the package to `devDependencies` rather than `dependencies`!  
-[More Details](https://github.com/sveltejs/sapper-template#using-external-components)
 
 
 ## Examples / Demo
