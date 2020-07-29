@@ -5,10 +5,14 @@
 		"sourceType": "module"
 	},
 	"plugins": ["svelte3"],
-	"settings": {
-		"svelte3/extensions": ["html"]
-	},
+	"overrides": [
+		{
+			"files": ["*.svelte"],
+			"processor": "svelte3/svelte3"
+		}
+	],
 	"env": {
+		"es6": true,
 		"browser": true
 	}
 }
