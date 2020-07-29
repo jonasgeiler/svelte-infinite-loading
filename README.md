@@ -1,6 +1,6 @@
 <p align="center"><img src="https://raw.githubusercontent.com/Skayo/svelte-infinite-loading/master/assets/InfiniteLogo.svg" alt="InfiniteLogo" width="225"></p>
-<h1 align="center">svelte-infinite-loading</h1>
-<h4 align="center">An infinite scroll component for Svelte apps</h4>
+<h2 align="center">svelte-infinite-loading</h2>
+<p align="center">An infinite scroll component for Svelte apps</p>
 <p align="center">
   <a href="https://npmjs.com/package/svelte-infinite-loading"><img src="https://img.shields.io/npm/v/axios-ky-adapter?style=for-the-badge" alt="NPM VERSION"></a>
   <a href="https://npmjs.com/package/svelte-infinite-loading"><img src="https://img.shields.io/npm/dt/axios-ky-adapter?style=for-the-badge" alt="NPM DOWNLOADS"></a>
