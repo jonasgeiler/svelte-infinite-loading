@@ -110,19 +110,19 @@
 	const scrollBarStorage = {
 		key: '_infiniteScrollHeight',
 
-		getScrollElm(elm) {
-			return elm === window ? document.documentElement : elm;
+		getScrollElement(element) {
+			return element === window ? document.documentElement : element;
 		},
 
-		save(elm) {
-			const target = this.getScrollElm(elm);
+		save(element) {
+			const target = this.getScrollElement(element);
 
 			// save scroll height on the scroll parent
 			target[this.key] = target.scrollHeight;
 		},
 
-		restore(elm) {
-			const target = this.getScrollElm(elm);
+		restore(element) {
+			const target = this.getScrollElement(element);
 
 			/* istanbul ignore else */
 			if (typeof target[this.key] === 'number') {
@@ -132,17 +132,17 @@
 			this.remove(target);
 		},
 
-		remove(elm) {
-			if (elm[this.key] !== undefined) {
+		remove(element) {
+			if (element[this.key] !== undefined) {
 				// remove scroll height
-				delete elm[this.key]; // eslint-disable-line no-param-reassign
+				delete element[this.key]; // eslint-disable-line no-param-reassign
 			}
 		},
 	};
 
 
-	function isVisible(elm) {
-		return (elm.offsetWidth + elm.offsetHeight) > 0;
+	function isVisible(element) {
+		return (element.offsetWidth + element.offsetHeight) > 0;
 	}
 </script>
 
@@ -161,13 +161,13 @@
 	let isFirstLoad = true; // save the current loading whether it is the first loading
 	let status = STATUS.READY;
 	let mounted = false;
-	let infiniteLoadingContainer;
+	let thisElement;
+	let scrollParent;
 
-	$: isShowSpinner = status === STATUS.LOADING;
-	$: isShowError = status === STATUS.ERROR;
-	$: isShowNoResults = status === STATUS.COMPLETE && isFirstLoad;
-	$: isShowNoMore = status === STATUS.COMPLETE && !isFirstLoad;
-	$: scrollParent = mounted ? getScrollParent(undefined, forceUseInfiniteWrapper /* pass as argument to watch changes */) : null;
+	$: showSpinner = status === STATUS.LOADING;
+	$: showError = status === STATUS.ERROR;
+	$: showNoResults = status === STATUS.COMPLETE && isFirstLoad;
+	$: showNoMore = status === STATUS.COMPLETE && !isFirstLoad;
 
 	const stateChanger = {
 		loaded: async () => {
@@ -216,11 +216,10 @@
 		},
 	};
 
-	$: if (mounted) stateChanger.reset(identifier /* pass as argument to watch changes */);
 
 	function scrollHandler(event) {
 		if (status === STATUS.READY) {
-			if (event && event.constructor === Event && isVisible(infiniteLoadingContainer)) {
+			if (event && event.constructor === Event && isVisible(thisElement)) {
 				throttler.throttle(attemptLoad);
 			} else {
 				attemptLoad();
@@ -230,7 +229,7 @@
 
 	// Attempt to trigger load
 	async function attemptLoad(isContinuousCall) {
-		if (status !== STATUS.COMPLETE && isVisible(infiniteLoadingContainer) && getCurrentDistance() <= distance) {
+		if (status !== STATUS.COMPLETE && isVisible(thisElement) && getCurrentDistance() <= distance) {
 			status = STATUS.LOADING;
 
 			if (direction === 'top') {
@@ -244,7 +243,6 @@
 
 			if (isContinuousCall && !forceUseInfiniteWrapper && !loopTracker.isChecked) {
 				// check this component whether be in an infinite loop if it is not checked
-				// more details: https://github.com/PeachScript/vue-infinite-loading/issues/55#issuecomment-316934169
 				loopTracker.track();
 			}
 		} else if (status === STATUS.LOADING) {
@@ -259,17 +257,17 @@
 		if (direction === 'top') {
 			distance = typeof scrollParent.scrollTop === 'number' ? scrollParent.scrollTop : scrollParent.pageYOffset;
 		} else {
-			const infiniteElmOffsetTopFromBottom = infiniteLoadingContainer.getBoundingClientRect().top;
-			const scrollElmOffsetTopFromBottom = scrollParent === window ? window.innerHeight : scrollParent.getBoundingClientRect().bottom;
+			const infiniteElementOffsetTopFromBottom = thisElement.getBoundingClientRect().top;
+			const scrollElementOffsetTopFromBottom = scrollParent === window ? window.innerHeight : scrollParent.getBoundingClientRect().bottom;
 
-			distance = infiniteElmOffsetTopFromBottom - scrollElmOffsetTopFromBottom;
+			distance = infiniteElementOffsetTopFromBottom - scrollElementOffsetTopFromBottom;
 		}
 
 		return distance;
 	}
 
 	// Get the first scroll parent of an element
-	function getScrollParent(element = infiniteLoadingContainer) {
+	function getScrollParent(element = thisElement) {
 		let result;
 
 		if (typeof forceUseInfiniteWrapper === 'string') {
@@ -289,6 +287,19 @@
 		return result || getScrollParent(element.parentNode);
 	}
 
+	function updateScrollParent() {
+		if (mounted) scrollParent = getScrollParent();
+	}
+
+	function identifierUpdated() {
+		if (mounted) stateChanger.reset();
+	}
+
+	// Watch forceUseInfiniteWrapper and mounted
+	$: forceUseInfiniteWrapper, mounted, updateScrollParent();
+
+	// Watch identifier and mounted
+	$: identifier, mounted, identifierUpdated();
 
 	onMount(async () => {
 		mounted = true;
@@ -308,8 +319,8 @@
 	});
 </script>
 
-<div class="infinite-loading-container" bind:this={infiniteLoadingContainer}>
-	{#if isShowSpinner}
+<div class="infinite-loading-container" bind:this={thisElement}>
+	{#if showSpinner}
 		<div class="infinite-status-prompt">
 			<slot name="spinner">
 				<Spinner {spinner} />
@@ -317,7 +328,7 @@
 		</div>
 	{/if}
 
-	{#if isShowNoResults}
+	{#if showNoResults}
 		<div class="infinite-status-prompt">
 			<slot name="noResults">
 				No results :(
@@ -325,7 +336,7 @@
 		</div>
 	{/if}
 
-	{#if isShowNoMore}
+	{#if showNoMore}
 		<div class="infinite-status-prompt">
 			<slot name="noMore">
 				No more data :)
@@ -333,7 +344,7 @@
 		</div>
 	{/if}
 
-	{#if isShowError}
+	{#if showError}
 		<div class="infinite-status-prompt">
 			<slot name="error" {attemptLoad}>
 				Oops, something went wrong :(
