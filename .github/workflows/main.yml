@@ -11,10 +11,9 @@ jobs:
         persist-credentials: false
   
     - name: Setup 🔧
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v2.1.1
       with:
         node-version: '12'
-        check-latest: true
 
     - name: Install ♻
       run: npm install
