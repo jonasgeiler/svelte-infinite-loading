@@ -43,13 +43,13 @@ With yarn:
 $ yarn add svelte-infinite-loading
 ```
 
-Or, what I would recommend, with [pnpm](https://pnpm.js.org/):
+With [pnpm](https://pnpm.js.org/) (recommended):
 ```shell
 $ npm i -g pnpm
 $ pnpm install svelte-infinite-loading
 ```
 
-From CDN:
+From CDN (via [unpkg](https://unpkg.com/)):
 ```html
 <!-- UMD -->
 <script src="https://unpkg.com/svelte-infinite-loading@^1/dist/svelte-infinite-loading.js"></script>
