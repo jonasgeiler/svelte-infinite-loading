@@ -1,6 +1,6 @@
 {
   "name": "svelte-infinite-loading",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "An infinite scroll component for Svelte apps",
   "scripts": {
     "build": "rollup -c",
