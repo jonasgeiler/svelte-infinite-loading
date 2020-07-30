@@ -311,7 +311,7 @@
 	});
 
 	onDestroy(() => {
-		if (!status !== STATUS.COMPLETE) {
+		if (mounted && status !== STATUS.COMPLETE) {
 			throttler.reset();
 			scrollBarStorage.remove(scrollParent);
 			scrollParent.removeEventListener('scroll', scrollHandler, thirdEventArg);
