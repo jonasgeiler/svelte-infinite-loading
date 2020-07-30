@@ -9,6 +9,7 @@
 <p align="center">
   <a href="#about">About</a> •
   <a href="#features">Features</a> •
+  <a href="#installation">Installation</a> •
   <a href="#documentation">Documentation</a> •
   <a href="#examples">Examples</a> •
   <a href="#license">License</a>
@@ -27,7 +28,7 @@ This is heavily inspired by [vue-infinite-loading](https://peachscript.github.io
 - Load result message display
 
 
-## Install
+## Installation
 
 > If you're using this component in a Sapper application, make sure to install the package to `devDependencies`!  
 > [More Details](https://github.com/sveltejs/sapper-template#using-external-components)
@@ -48,6 +49,14 @@ $ npm i -g pnpm
 $ pnpm install svelte-infinite-loading
 ```
 
+From CDN:
+```html
+<!-- UMD -->
+<script src="https://unpkg.com/svelte-infinite-loading@^1/dist/svelte-infinite-loading.js"></script>
+
+<!-- ES Module -->
+<script src="https://unpkg.com/svelte-infinite-loading@^1/dist/svelte-infinite-loading.mjs"></script>
+```
 
 ## Examples / Demo
 
