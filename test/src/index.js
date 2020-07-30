@@ -27,6 +27,8 @@ test('with no data, creates two <div> elements', async t => {
 	const app = new App({
 		target
 	});
+
+	//app.$destroy();
 });
 
 // this allows us to close puppeteer once tests have completed

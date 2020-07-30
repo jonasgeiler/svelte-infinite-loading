@@ -22,7 +22,7 @@ This is heavily inspired by [vue-infinite-loading](https://peachscript.github.io
 ### Features
 
 - Mobile friendly
-- Internal spinners
+- Built-in spinners
 - 2-directional support
 - Load result message display
 
