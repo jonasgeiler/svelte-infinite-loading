@@ -2,11 +2,9 @@
   "name": "svelte-infinite-loading",
   "version": "1.2.2",
   "description": "An infinite scroll component for Svelte apps",
-  "main": "index.js",
-  "files": [
-    "src",
-    "index.js"
-  ],
+  "svelte": "src/index.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -cw",
@@ -17,13 +15,13 @@
     "lint": "eslint src/**"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "eslint": "^7.5.0",
     "eslint-plugin-svelte3": "^2.7.3",
     "port-authority": "^1.0.5",
     "puppeteer": "^5.2.1",
     "rollup": "^2.23.0",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte": "^5.2.3",
     "sirv": "^0.2.2",
     "svelte": "^3.0.0-beta.2",
@@ -31,6 +29,10 @@
     "tap-dot": "^2.0.0",
     "tape-modern": "^1.1.1"
   },
+  "files": [
+    "src",
+    "dist"
+  ],
   "keywords": [
     "svelte",
     "infinite",
