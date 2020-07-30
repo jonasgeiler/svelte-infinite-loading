@@ -38,7 +38,8 @@
     "scroll",
     "component",
     "plugin",
-    "spinner"
+    "spinner",
+    "svelte-components"
   ],
   "author": {
     "name": "Skayo",
