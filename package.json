@@ -2,6 +2,11 @@
   "name": "svelte-infinite-loading",
   "version": "1.2.0",
   "description": "An infinite scroll component for Svelte apps",
+  "main": "index.js",
+  "files": [
+    "src",
+    "index.js"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -cw",
@@ -9,7 +14,7 @@
     "test": "node test/runner.js",
     "test:browser": "npm run build && serve test/public",
     "pretest": "npm run build",
-    "lint": "eslint src/InfiniteLoading.svelte"
+    "lint": "eslint src/**"
   },
   "devDependencies": {
     "eslint": "^7.5.0",
