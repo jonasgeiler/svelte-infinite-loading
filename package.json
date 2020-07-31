@@ -6,27 +6,23 @@
   "module": "dist/svelte-infinite-loading.mjs",
   "main": "dist/svelte-infinite-loading.js",
   "scripts": {
-    "dev": "rollup -cw",
     "build": "rollup -c",
     "lint": "eslint src/**",
-    "test": "npm run lint && npm run build && node test/runner.js",
-    "test:browser": "npm run lint && npm run build && serve test/public",
+    "test": "jest src",
+    "test:watch": "npm run test -- --watch",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^8.4.0",
+    "@testing-library/jest-dom": "^5.11.2",
+    "@testing-library/svelte": "^3.0.0",
     "eslint": "^7.5.0",
     "eslint-plugin-svelte3": "^2.7.3",
-    "port-authority": "^1.0.5",
-    "puppeteer": "^5.2.1",
+    "jest": "^26.2.2",
     "rollup": "^2.23.0",
-    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-svelte": "^5.2.3",
-    "sirv": "^0.2.2",
     "svelte": "^3.0.0-beta.2",
-    "tap-diff": "^0.1.1",
-    "tap-dot": "^2.0.0",
-    "tape-modern": "^1.1.1"
+    "svelte-jester": "^1.0.6"
   },
   "files": [
     "src",
