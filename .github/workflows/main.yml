@@ -2,27 +2,7 @@ name: Lint, Test & Publish
 on: [push, pull_request]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-
-      - name: Setup 🔧
-        uses: actions/setup-node@v2.1.1
-        with:
-          node-version: 12
-
-      - name: Install ♻
-        run: npm install
-
-      - name: Lint 👓
-        run: npm run lint
-
   test:
-    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -6,13 +6,12 @@
   "module": "dist/svelte-infinite-loading.mjs",
   "main": "dist/svelte-infinite-loading.js",
   "scripts": {
-    "build": "rollup -c",
     "dev": "rollup -cw",
-    "prepublishOnly": "npm run build",
-    "test": "node test/runner.js",
-    "test:browser": "npm run build && serve test/public",
-    "pretest": "npm run build",
-    "lint": "eslint src/**"
+    "build": "rollup -c",
+    "lint": "eslint src/**",
+    "test": "npm run lint && npm run build && node test/runner.js",
+    "test:browser": "npm run lint && npm run build && serve test/public",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^8.4.0",
