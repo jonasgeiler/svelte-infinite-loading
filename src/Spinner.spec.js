@@ -4,10 +4,9 @@ const { render, fireEvent } = require('@testing-library/svelte');
 
 const Spinner = require('./Spinner.svelte');
 
-test('shows default animation when spinner set to default', () => {
-	const { container } = render(Spinner, { spinner: 'default' });
-	expect(container).toBeInTheDocument();
 
+
+function testDefaultAnimation(container) {
 	const spinner = container.getElementsByTagName('i')[0];
 
 	expect(spinner).not.toBeUndefined();
@@ -15,12 +14,25 @@ test('shows default animation when spinner set to default', () => {
 	expect(spinner).toBeInTheDocument();
 	expect(spinner).toBeEmptyDOMElement();
 	expect(spinner).toHaveClass('loading-default');
-});
+}
 
-test('shows wave dots animation when spinner set to wavedots', () => {
-	const { container } = render(Spinner, { spinner: 'wavedots' });
+test('shows default animation when spinner prop set to default', () => {
+	const { container } = render(Spinner, { spinner: 'default' });
 	expect(container).toBeInTheDocument();
 
+	testDefaultAnimation(container);
+});
+
+test('shows default animation when no prop set', () => {
+	const { container } = render(Spinner);
+	expect(container).toBeInTheDocument();
+
+	testDefaultAnimation(container);
+});
+
+
+
+function testWaveDotsAnimation(container) {
 	const waveContainer = container.getElementsByTagName('span')[0];
 
 	expect(waveContainer).not.toBeUndefined();
@@ -37,12 +49,18 @@ test('shows wave dots animation when spinner set to wavedots', () => {
 		expect(waveItem).toBeEmptyDOMElement();
 		expect(waveItem).toHaveClass('wave-item');
 	}
-});
+}
 
-test('shows spiral animation when spinner set to spiral', () => {
-	const { container } = render(Spinner, { spinner: 'spiral' });
+test('shows wave dots animation when spinner prop set to wavedots', () => {
+	const { container } = render(Spinner, { spinner: 'wavedots' });
 	expect(container).toBeInTheDocument();
 
+	testWaveDotsAnimation(container);
+});
+
+
+
+function testSpiralAnimation(container) {
 	const spinner = container.getElementsByTagName('i')[0];
 
 	expect(spinner).not.toBeUndefined();
@@ -50,12 +68,18 @@ test('shows spiral animation when spinner set to spiral', () => {
 	expect(spinner).toBeInTheDocument();
 	expect(spinner).toBeEmptyDOMElement();
 	expect(spinner).toHaveClass('loading-spiral');
-});
+}
 
-test('shows circles animation when spinner set to circles', () => {
-	const { container } = render(Spinner, { spinner: 'circles' });
+test('shows spiral animation when spinner prop set to spiral', () => {
+	const { container } = render(Spinner, { spinner: 'spiral' });
 	expect(container).toBeInTheDocument();
 
+	testSpiralAnimation(container);
+});
+
+
+
+function testCirclesAnimation(container) {
 	const circlesContainer = container.getElementsByTagName('span')[0];
 
 	expect(circlesContainer).not.toBeUndefined();
@@ -72,12 +96,18 @@ test('shows circles animation when spinner set to circles', () => {
 		expect(circleItem).toBeEmptyDOMElement();
 		expect(circleItem).toHaveClass('circle-item');
 	}
-});
+}
 
-test('shows bubbles animation when spinner set to bubbles', () => {
-	const { container } = render(Spinner, { spinner: 'bubbles' });
+test('shows circles animation when spinner prop set to circles', () => {
+	const { container } = render(Spinner, { spinner: 'circles' });
 	expect(container).toBeInTheDocument();
 
+	testCirclesAnimation(container);
+});
+
+
+
+function testBubblesAnimation(container) {
 	const bubblesContainer = container.getElementsByTagName('span')[0];
 
 	expect(bubblesContainer).not.toBeUndefined();
@@ -94,4 +124,24 @@ test('shows bubbles animation when spinner set to bubbles', () => {
 		expect(bubblesItem).toBeEmptyDOMElement();
 		expect(bubblesItem).toHaveClass('bubble-item');
 	}
+}
+
+test('shows bubbles animation when spinner prop set to bubbles', () => {
+	const { container } = render(Spinner, { spinner: 'bubbles' });
+	expect(container).toBeInTheDocument();
+
+	testBubblesAnimation(container);
+});
+
+
+
+test('updates animation when spinner prop changes', async () => {
+	const { container, component } = render(Spinner, { spinner: 'default' });
+	expect(container).toBeInTheDocument();
+
+	testDefaultAnimation(container);
+
+	await component.$set({ spinner: 'spiral' });
+
+	testSpiralAnimation(container);
 });
