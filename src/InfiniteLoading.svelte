@@ -25,7 +25,6 @@
 		'</div>',
 	].join('\n');
 
-
 	/**
 	 * the third argument for event bundler
 	 * @see https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
@@ -255,7 +254,7 @@
 		let distance;
 
 		if (direction === 'top') {
-			distance = typeof scrollParent.scrollTop === 'number' ? scrollParent.scrollTop : scrollParent.pageYOffset;
+			distance = typeof scrollParent.scrollTop === 'number' ? scrollParent.scrollTop + scrollParent.scrollHeight - scrollParent.offsetHeight : scrollParent.pageYOffset;
 		} else {
 			const infiniteElementOffsetTopFromBottom = thisElement.getBoundingClientRect().top;
 			const scrollElementOffsetTopFromBottom = scrollParent === window ? window.innerHeight : scrollParent.getBoundingClientRect().bottom;
