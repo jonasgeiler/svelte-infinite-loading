@@ -14,18 +14,24 @@ export interface InfiniteLoadingProps {
 	/**
 	 * The infinite event will be fired if the scroll distance is less than this value. If direction is set to top, it will calculate the
 	 * distance between the scroll bar and the top, if direction is set to bottom, it will calculate the distance between the scroll bar
-	 *  and the bottom.
+	 * and the bottom.
+	 *
+	 * @default 100
 	 */
 	distance?: number;
 
 	/**
 	 * This property is used to set the loading animation, you can choose one of the built-in spinners that you like. You can also use
 	 * your own with the spinner slot.
+	 *
+	 * @default 'default'
 	 */
 	spinner?: SpinnerType;
 
 	/**
 	 * This property is used to set the load direction.
+	 *
+	 * @default 'bottom'
 	 */
 	direction?: DirectionType;
 
@@ -38,12 +44,16 @@ export interface InfiniteLoadingProps {
 	 * data-infinite-wrapper attribute and use it as the scroll container, if this value is a string, the component will use it as a CSS selector,
 	 * and search for the element to use as the scroll container via the querySelector API, if all failed, the component will use window
 	 * as the scroll container.
+	 *
+	 * @default false
 	 */
 	forceUseInfiniteWrapper?: boolean | string;
 
 	/**
 	 * The component will be reset if this property has changed, just like recreating a new component, usually used when the list has
 	 * filters or tabs.
+	 *
+	 * @default +new Date()
 	 */
 	identifier?: any;
 }
