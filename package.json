@@ -3,8 +3,9 @@
   "version": "1.2.5",
   "description": "An infinite scroll component for Svelte apps",
   "svelte": "src/index.js",
-  "module": "dist/svelte-infinite-loading.mjs",
   "main": "dist/svelte-infinite-loading.js",
+  "module": "dist/svelte-infinite-loading.mjs",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src/** test/**",
@@ -26,7 +27,8 @@
   },
   "files": [
     "src",
-    "dist"
+    "dist",
+    "types"
   ],
   "keywords": [
     "svelte",
