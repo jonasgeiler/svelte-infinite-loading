@@ -153,7 +153,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let distance = 100;
-	export let spinner = '';
+	export let spinner = 'default';
 	export let direction = 'bottom';
 	export let forceUseInfiniteWrapper = false;
 	export let identifier = +new Date();
