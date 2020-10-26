@@ -322,7 +322,7 @@
 <div class="infinite-loading-container" bind:this={thisElement}>
 	{#if showSpinner}
 		<div class="infinite-status-prompt">
-			<slot name="spinner">
+			<slot name="spinner" {isFirstLoad}>
 				<Spinner {spinner} />
 			</slot>
 		</div>
