@@ -1,8 +1,8 @@
 require('@testing-library/jest-dom/extend-expect');
 
-const { render, fireEvent } = require('@testing-library/svelte');
+const { render /*, fireEvent*/ } = require('@testing-library/svelte');
 
-const Spinner = require('./Spinner.svelte');
+const Spinner = require('../src/Spinner.svelte');
 
 
 
