@@ -163,6 +163,6 @@ export default class InfiniteLoading extends SvelteComponentDev {
 
 	$set (props: InfiniteLoadingProps): void;
 
-	$on<K extends keyof InfiniteLoadingEvents> (event: K, callback: (event: InfiniteLoadingEvents[K]) => any): () => void;
+	$on<K extends keyof InfiniteLoadingEvents> (event: K, callback: (event: InfiniteLoadingEvents[K]) => void): () => void;
 	$on<T = any>(event: string, callback: (event: CustomEvent<T>) => void): () => void;
 }
