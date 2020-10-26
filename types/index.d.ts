@@ -153,7 +153,7 @@ export default class InfiniteLoading extends SvelteComponentDev {
 		// Only allow predefined props:
 		props?: InfiniteLoadingProps;
 
-		// Other parameters...
+		// Other options...
 		target: Element;
 		anchor?: Element;
 		hydrate?: boolean;
@@ -161,7 +161,7 @@ export default class InfiniteLoading extends SvelteComponentDev {
 		$$inline?: boolean;
 	});
 
-	$set (props: InfiniteLoadingProps): void;
+	$set (props?: InfiniteLoadingProps): void;
 
 	$on<K extends keyof InfiniteLoadingEvents> (event: K, callback: (event: InfiniteLoadingEvents[K]) => void): () => void;
 	$on<T = any>(event: string, callback: (event: CustomEvent<T>) => void): () => void;
