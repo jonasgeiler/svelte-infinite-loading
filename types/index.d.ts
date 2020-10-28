@@ -142,7 +142,7 @@ export default class InfiniteLoading extends SvelteComponentDev {
 	$$prop_def: InfiniteLoadingProps;
 
 	/**
-	 * Slots
+	 * Events
 	 *
 	 * @internal This is for type checking capabilities only
 	 * and does not exist at runtime. Don't use this property.
@@ -150,7 +150,7 @@ export default class InfiniteLoading extends SvelteComponentDev {
 	$$events_def: InfiniteLoadingEvents;
 
 	/**
-	 * Events
+	 * Slots
 	 *
 	 * @internal This is for type checking capabilities only
 	 * and does not exist at runtime. Don't use this property.
