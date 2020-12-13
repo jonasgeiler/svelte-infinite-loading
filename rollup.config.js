@@ -14,7 +14,7 @@ export default {
 		{ file: pkg.main, format: 'umd', name: 'InfiniteLoading' },
 	],
 	plugins: [
-		svelte(),
+		svelte({ emitCss: false }),
 		resolve()
 	],
 
