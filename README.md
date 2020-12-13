@@ -4,7 +4,7 @@
 <p align="center">
   <a href="https://npmjs.com/package/svelte-infinite-loading"><img src="https://img.shields.io/npm/v/svelte-infinite-loading?style=for-the-badge" alt="NPM VERSION"></a>
   <a href="https://npmjs.com/package/svelte-infinite-loading"><img src="https://img.shields.io/npm/dt/svelte-infinite-loading?style=for-the-badge" alt="NPM DOWNLOADS"></a>
-  <a href="https://npmjs.com/package/svelte-infinite-loading"><img src="https://img.shields.io/david/Skayo/svelte-infinite-loading?style=for-the-badge" alt="DEPENDENCIES"></a>
+  <a href="https://npmjs.com/package/svelte-infinite-loading"><img src="https://img.shields.io/librariesio/release/npm/svelte-infinite-loading?style=for-the-badge" alt="DEPENDENCIES"></a>
 </p>
 <p align="center">
   <a href="#about">About</a> •

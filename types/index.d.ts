@@ -3,7 +3,7 @@
 import { SvelteComponentDev } from 'svelte/internal';
 
 
-export type SpinnerType = 'default' | 'bubbles' | 'circles' | 'spiral' | 'waveDots';
+export type SpinnerType = 'default' | 'bubbles' | 'circles' | 'spiral' | 'wavedots';
 export type DirectionType = 'top' | 'bottom';
 
 
