@@ -1,6 +1,6 @@
 {
   "name": "svelte-infinite-loading",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "An infinite scroll component for Svelte apps",
   "svelte": "src/index.js",
   "main": "dist/svelte-infinite-loading.js",
