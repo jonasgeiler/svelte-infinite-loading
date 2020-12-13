@@ -1,6 +1,5 @@
 /// <reference types="svelte" />
-
-import { SvelteComponentDev } from 'svelte/internal';
+import { SvelteComponentTyped } from 'svelte';
 
 
 export type SpinnerType = 'default' | 'bubbles' | 'circles' | 'spiral' | 'wavedots';
@@ -67,23 +66,23 @@ export interface InfiniteLoadingSlots {
 	 * This message will be displayed when there is no data, which means that we have called the InfiniteEvent.details.complete
 	 * method, before ever calling the InfiniteEvent.details.loaded method.
 	 */
-	noResults: {},
+	noResults: {};
 
 	/**
 	 * This message will be displayed when there is no more data, which means we have called the InfiniteEvent.details.loaded
 	 * method at least once before calling the InfiniteEvent.details.complete method.
 	 */
-	noMore: {},
+	noMore: {};
 
 	/**
 	 * This message will be displayed when loading has failed, which means that we have called the InfiniteEvent.details.error method.
 	 */
-	error: { attemptLoad: () => void },
+	error: { attemptLoad: () => void };
 
 	/**
 	 * This slot will be displayed when loading data, you can also use your own spinner here.
 	 */
-	spinner: { isFirstLoad: boolean }
+	spinner: { isFirstLoad: boolean };
 }
 
 
@@ -95,24 +94,24 @@ export interface StateChanger {
 	 * Inform the component that this loading has been successful. The infinite event will be fired again if the first screen was not be
 	 * filled up, otherwise, the component will hide the loading animation and continue to listen to scroll events.
 	 */
-	loaded (): void;
+	loaded(): void;
 
 	/**
 	 * Inform the component that all the data has been loaded successfully. If the InfiniteEvent.details.loaded method has not
 	 * been called before this, the content of the noResults slot will be
 	 * displayed, otherwise, the content of the noMore slot will be displayed.
 	 */
-	complete (): void;
+	complete(): void;
 
 	/**
 	 * Inform the component that loading the data has failed. The content of the error slot will be displayed.
 	 */
-	error (): void;
+	error(): void;
 
 	/**
 	 * Reset the component. Same as changing the identifier property.
 	 */
-	reset (): void;
+	reset(): void;
 }
 
 /**
@@ -132,47 +131,5 @@ export interface InfiniteLoadingEvents {
 /**
  * InfiniteLoading component
  */
-export default class InfiniteLoading extends SvelteComponentDev {
-	/**
-	 * Props
-	 *
-	 * @internal This is for type checking capabilities only
-	 * and does not exist at runtime. Don't use this property.
-	 */
-	$$prop_def: InfiniteLoadingProps;
-
-	/**
-	 * Events
-	 *
-	 * @internal This is for type checking capabilities only
-	 * and does not exist at runtime. Don't use this property.
-	 */
-	$$events_def: InfiniteLoadingEvents;
-
-	/**
-	 * Slots
-	 *
-	 * @internal This is for type checking capabilities only
-	 * and does not exist at runtime. Don't use this property.
-	 */
-	$$slot_def: InfiniteLoadingSlots;
-
-
-
-	constructor (options: {
-		// Only allow predefined props:
-		props?: InfiniteLoadingProps;
-
-		// Other options...
-		target: Element;
-		anchor?: Element;
-		hydrate?: boolean;
-		intro?: boolean;
-		$$inline?: boolean;
-	});
-
-	$set (props?: InfiniteLoadingProps): void;
-
-	$on<K extends keyof InfiniteLoadingEvents> (event: K, callback: (event: InfiniteLoadingEvents[K]) => void): () => void;
-	$on<T = any>(event: string, callback: (event: CustomEvent<T>) => void): () => void;
+export default class InfiniteLoading extends SvelteComponentTyped<InfiniteLoadingProps, InfiniteLoadingEvents, InfiniteLoadingSlots> {
 }
