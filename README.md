@@ -18,7 +18,7 @@
 ## About
 
 An infinite scroll component for Svelte, to help you implement an infinite scroll list more easily.  
-This is heavily inspired by [vue-infinite-loading](https://peachscript.github.io/vue-infinite-loading/) and uses most of its ideas and functionality!
+This is heavily inspired by [vue-infinite-loading](https://peachscript.github.io/vue-infinite-loading/) and uses most of its code and functionality!
 
 ### Features
 
