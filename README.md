@@ -63,6 +63,7 @@ From CDN (via [unpkg](https://unpkg.com/)):
 - [Hacker News](https://svelte.dev/repl/c053fb0b13154b07a503ac04e0cb2c66)
 - [Hacker News with Filter](https://svelte.dev/repl/73d404d5a26a47db969c4ebc154e8079)
 - [Hacker News with Top Direction](https://svelte.dev/repl/9a04b19fcf5f4da0bead27f1cdf55cfb)
+- [Hacker News using svelte-tiny-virtual-list](https://svelte.dev/repl/2239cc4c861c41d18abbc858248f5a0d)
 
 For more information on how to use this library, check the [documentation](https://github.com/Skayo/svelte-infinite-loading/wiki)!
 
