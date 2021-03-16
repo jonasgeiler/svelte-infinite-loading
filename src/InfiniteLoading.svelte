@@ -1,10 +1,5 @@
 <script context="module">
-	const STATUS = {
-		READY:    0,
-		LOADING:  1,
-		COMPLETE: 2,
-		ERROR:    3,
-	};
+
 	const THROTTLE_LIMIT = 50;
 	const LOOP_CHECK_TIMEOUT = 1000;
 	const LOOP_CHECK_MAX_CALLS = 10;
@@ -151,6 +146,13 @@
 	import Spinner from './Spinner.svelte';
 
 	const dispatch = createEventDispatcher();
+
+	const STATUS = {
+		READY:    0,
+		LOADING:  1,
+		COMPLETE: 2,
+		ERROR:    3,
+	};
 
 	export let distance = 100;
 	export let spinner = 'default';
