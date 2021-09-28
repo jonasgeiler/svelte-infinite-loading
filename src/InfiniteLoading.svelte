@@ -137,7 +137,7 @@
 
 
 	function isVisible(element) {
-		return (element.offsetWidth + element.offsetHeight) > 0;
+		return element && (element.offsetWidth + element.offsetHeight) > 0;
 	}
 </script>
 
