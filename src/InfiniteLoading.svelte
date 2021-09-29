@@ -26,22 +26,23 @@
 	 * @see https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
 	 */
 	const thirdEventArg = (() => {
-		let result = false;
+		let supportsPassive = false;
 
 		try {
-			const arg = Object.defineProperty({}, 'passive', {
+			const opts = Object.defineProperty({}, 'passive', {
 				get() {
-					result = { passive: true };
+					supportsPassive = { passive: true };
 					return true;
 				},
 			});
 
-			window.addEventListener('testpassive', arg, arg);
-			window.remove('testpassive', arg, arg);
-		} catch (e) { /* */
+			window.addEventListener('testPassive', null, opts);
+			window.removeEventListener('testPassive', null, opts);
+		} catch (e) {
+			//
 		}
 
-		return result;
+		return supportsPassive;
 	})();
 
 
