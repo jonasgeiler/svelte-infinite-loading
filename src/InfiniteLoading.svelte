@@ -198,7 +198,7 @@
 			scrollParent.removeEventListener('scroll', scrollHandler, thirdEventArg);
 		},
 
-		reset: async () => {
+		reset: () => {
 			status = STATUS.READY;
 			isFirstLoad = true;
 
