@@ -1,6 +1,6 @@
 {
-  "name": "svelte-infinite-loading",
-  "version": "1.3.8",
+  "name": "@cokejoke/svelte-infinite-loading",
+  "version": "1.3.9",
   "description": "An infinite scroll component for Svelte apps",
   "svelte": "src/index.js",
   "main": "dist/svelte-infinite-loading.js",
@@ -41,17 +41,17 @@
     "svelte-components"
   ],
   "author": {
-    "name": "Skayo",
+    "name": "cokejoke",
     "email": "contact@skayo.dev",
     "url": "https://skayo.dev"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Skayo/svelte-infinite-loading.git"
+    "url": "git+https://github.com/cokejoke/svelte-infinite-loading.git"
   },
   "bugs": {
-    "url": "https://github.com/Skayo/svelte-infinite-loading/issues"
+    "url": "https://github.com/cokejoke/svelte-infinite-loading/issues"
   },
-  "homepage": "https://github.com/Skayo/svelte-infinite-loading"
+  "homepage": "https://github.com/cokejoke/svelte-infinite-loading"
 }
