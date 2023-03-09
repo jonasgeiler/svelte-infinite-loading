@@ -66,18 +66,23 @@ export interface InfiniteLoadingSlots {
 	 * This message will be displayed when there is no data, which means that we have called the InfiniteEvent.details.complete
 	 * method, before ever calling the InfiniteEvent.details.loaded method.
 	 */
-	noResults: {};
+	noResults: string;
 
 	/**
 	 * This message will be displayed when there is no more data, which means we have called the InfiniteEvent.details.loaded
 	 * method at least once before calling the InfiniteEvent.details.complete method.
 	 */
-	noMore: {};
+	noMore: string;
 
 	/**
 	 * This message will be displayed when loading has failed, which means that we have called the InfiniteEvent.details.error method.
 	 */
-	error: { attemptLoad: () => void };
+	error: string;
+
+	/**
+	 * This is a Part of the error message. It will change the button text, wich means that we have called the InfiniteEvent.details.error method.
+	 */
+	errorButton: string;
 
 	/**
 	 * This slot will be displayed when loading data, you can also use your own spinner here.
