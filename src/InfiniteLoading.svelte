@@ -161,6 +161,9 @@
 	export let forceUseInfiniteWrapper = false;
 	export let identifier = +new Date();
 
+    /**
+     * Slot props
+     */
 	export let noResults = 'No results :(';
 	export let noMore = 'No more data :)';
 	export let error = 'Oops, something went wrong :(';
