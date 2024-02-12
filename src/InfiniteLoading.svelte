@@ -160,6 +160,7 @@
 	export let direction = 'bottom';
 	export let forceUseInfiniteWrapper = false;
 	export let identifier = +new Date();
+	export let hideStatus = false;
 
 	let isFirstLoad = true; // save the current loading whether it is the first loading
 	let status = STATUS.READY;
@@ -169,8 +170,8 @@
 
 	$: showSpinner = status === STATUS.LOADING;
 	$: showError = status === STATUS.ERROR;
-	$: showNoResults = status === STATUS.COMPLETE && isFirstLoad;
-	$: showNoMore = status === STATUS.COMPLETE && !isFirstLoad;
+	$: showNoResults = status === STATUS.COMPLETE && isFirstLoad && !hideStatus;
+	$: showNoMore = status === STATUS.COMPLETE && !isFirstLoad && !hideStatus;
 
 	const stateChanger = {
 		loaded: async () => {
