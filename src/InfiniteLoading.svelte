@@ -161,6 +161,14 @@
 	export let forceUseInfiniteWrapper = false;
 	export let identifier = +new Date();
 
+    /**
+     * Slot props
+     */
+	export let noResults = 'No results :(';
+	export let noMore = 'No more data :)';
+	export let error = 'Oops, something went wrong :(';
+	export let errorButton = 'Retry';
+
 	let isFirstLoad = true; // save the current loading whether it is the first loading
 	let status = STATUS.READY;
 	let mounted = false;
@@ -334,7 +342,7 @@
 	{#if showNoResults}
 		<div class="infinite-status-prompt">
 			<slot name="noResults">
-				No results :(
+				{noResults}
 			</slot>
 		</div>
 	{/if}
@@ -342,7 +350,7 @@
 	{#if showNoMore}
 		<div class="infinite-status-prompt">
 			<slot name="noMore">
-				No more data :)
+				{noMore}
 			</slot>
 		</div>
 	{/if}
@@ -350,10 +358,10 @@
 	{#if showError}
 		<div class="infinite-status-prompt">
 			<slot name="error" {attemptLoad}>
-				Oops, something went wrong :(
+				{error}
 				<br>
 				<button class="btn-try-infinite" on:click={attemptLoad}>
-					Retry
+					{errorButton}
 				</button>
 			</slot>
 		</div>

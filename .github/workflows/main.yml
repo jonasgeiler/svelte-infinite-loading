@@ -53,6 +53,6 @@ jobs:
 
       - name: Publish 🚀
         if: steps.check.outputs.changed == 'true'
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
