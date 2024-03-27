@@ -30,6 +30,13 @@
     "dist",
     "types"
   ],
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "svelte": "./src/index.js",
+      "default": "./dist/svelte-infinite-loading.js"
+    }
+  },
   "keywords": [
     "svelte",
     "infinite",
