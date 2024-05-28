@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/Skayo/svelte-infinite-loading/master/assets/InfiniteLogo.svg" alt="InfiniteLogo" width="225"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/jonasgeiler/svelte-infinite-loading/master/assets/InfiniteLogo.svg" alt="InfiniteLogo" width="225"></p>
 <h2 align="center">svelte-infinite-loading</h2>
 <p align="center">An infinite scroll component for Svelte apps</p>
 <p align="center">
@@ -65,14 +65,14 @@ From CDN (via [unpkg](https://unpkg.com/)):
 - [Hacker News with Top Direction](https://svelte.dev/repl/9a04b19fcf5f4da0bead27f1cdf55cfb)
 - [Hacker News using svelte-tiny-virtual-list](https://svelte.dev/repl/2239cc4c861c41d18abbc858248f5a0d)
 
-For more information on how to use this library, check the [documentation](https://github.com/Skayo/svelte-infinite-loading/wiki)!
+For more information on how to use this library, check the [documentation](https://github.com/jonasgeiler/svelte-infinite-loading/wiki)!
 
 
 ## Documentation
 
-You can find the documentation in the [repository wiki](https://github.com/Skayo/svelte-infinite-loading/wiki)
+You can find the documentation in the [repository wiki](https://github.com/jonasgeiler/svelte-infinite-loading/wiki)
 
 
 ## License
 
-[MIT License](https://github.com/Skayo/svelte-infinite-loading/blob/master/LICENSE)
+[MIT License](https://github.com/jonasgeiler/svelte-infinite-loading/blob/master/LICENSE)
