@@ -11,7 +11,7 @@
     "lint": "eslint src/** test/**",
     "test": "jest test",
     "test:watch": "npm run test -- --watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^11.0.0",
