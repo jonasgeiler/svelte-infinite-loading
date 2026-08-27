@@ -1,41 +1,42 @@
 {
 	"name": "svelte-infinite-loading",
-	"version": "0.0.1",
+	"version": "2.0.0",
+	"description": "An infinite scroll component for Svelte apps",
+	"homepage": "https://svelte-infinite-loading.jonasgeiler.com",
+	"bugs": "https://github.com/jonasgeiler/svelte-infinite-loading/issues",
+	"funding": "https://github.com/sponsors/jonasgeiler",
+	"license": "MIT",
+	"author": "Jonas Geiler <npm@jonasgeiler.com> (https://jonasgeiler.com)",
+	"repository": "github:jonasgeiler/svelte-infinite-loading",
 	"scripts": {
+		"prepare": "git config core.hooksPath .githooks && (svelte-kit sync || echo '')",
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
 		"prepack": "svelte-kit sync && svelte-package && publint",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
-		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write .",
-		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run && npm run test:e2e",
-		"test:e2e": "playwright install && playwright test"
+		"check": "pnpm run '/^check:.*/'",
+		"check:biome": "biome check",
+		"check:eslint": "eslint .",
+		"check:prettier": "prettier --check .",
+		"check:vitest": "vitest run",
+		"check:playwright": "playwright install && playwright test",
+		"check:svelte": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+		"fix": "pnpm run fix:biome && pnpm run fix:eslint && pnpm run fix:prettier",
+		"fix:biome": "biome check --fix",
+		"fix:eslint": "eslint --fix .",
+		"fix:prettier": "prettier --write .",
+		"fix-unsafe": "pnpm run fix-unsafe:biome",
+		"fix-unsafe:biome": "biome check --fix --unsafe"
 	},
-	"files": [
-		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
-	],
-	"sideEffects": [
-		"**/*.css"
-	],
-	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
-		}
+	"engines": {
+		"node": ">=20.17.0"
 	},
+	"packageManager": "pnpm@11.24.0+sha512.bd27e345e976dcb0be0b7a1228217b049a817e21b1f355c90dbe7dc46671895a8bc1e6d06c24554505ea93ea0b45f489a27ec1bfbc8de6a9659fca0f16fa0000",
 	"peerDependencies": {
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^2.5.10",
 		"@eslint/js": "^10.0.1",
 		"@playwright/test": "^1.60.0",
 		"@sveltejs/adapter-auto": "^7.0.1",
@@ -48,6 +49,7 @@
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.19.0",
 		"globals": "^17.6.0",
+		"lint-staged": "^17.3.0",
 		"playwright": "^1.60.0",
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^4.1.0",
@@ -59,7 +61,31 @@
 		"vitest": "^4.1.8",
 		"vitest-browser-svelte": "^2.1.1"
 	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"sideEffects": [
+		"**/*.css"
+	],
+	"type": "module",
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		}
+	},
 	"keywords": [
-		"svelte"
+		"svelte",
+		"infinite",
+		"loading",
+		"scroll",
+		"component",
+		"plugin",
+		"spinner",
+		"svelte-components"
 	]
 }

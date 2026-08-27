@@ -1,0 +1,10 @@
+############################################################
+#                 lint-staged config file                  #
+# https://github.com/lint-staged/lint-staged#configuration #
+############################################################
+
+'*.{js,ts,svelte,css,html,json,jsonc}': biome check
+'*.{js,ts,svelte}': eslint
+'*.{js,ts,svelte,css,html,json,jsonc,yml,yaml,md}': prettier --check
+'*.{test,spec}.{js,ts}': vitest related --run
+'*.e2e.{js,ts}': playwright test

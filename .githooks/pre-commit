@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail -x
+#####################################
+#           Git hook file           #
+# https://git-scm.com/docs/githooks #
+#####################################
+
+lint-staged --verbose

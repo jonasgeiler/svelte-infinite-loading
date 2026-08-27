@@ -1,3 +1,8 @@
+/********************************************************************/
+/*                        ESLint config file                        */
+/* https://eslint.org/docs/latest/use/configure/configuration-files */
+/********************************************************************/
+
 import prettier from 'eslint-config-prettier';
 import path from 'node:path';
 import js from '@eslint/js';
@@ -7,6 +12,7 @@ import globals from 'globals';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
+// TODO: Lint plain TypeScript files?
 export default defineConfig([
 	includeIgnoreFile(gitignorePath),
 	js.configs.recommended,

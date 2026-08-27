@@ -1,3 +1,8 @@
+/**************************************************/
+/*             Playwright config file             */
+/* https://playwright.dev/docs/test-configuration */
+/**************************************************/
+
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({

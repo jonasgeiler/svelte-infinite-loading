@@ -8,7 +8,9 @@
 Thumbs.db
 
 # Editor/IDE
-.idea/
+.idea/*
+!.idea/externalDependencies.xml
+!.idea/icon.svg
 .vscode/*
 !.vscode/extensions.json
 

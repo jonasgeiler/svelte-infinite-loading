@@ -1,3 +1,8 @@
+/****************************/
+/*     Vite config file     */
+/* https://vite.dev/config/ */
+/****************************/
+
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import adapter from '@sveltejs/adapter-auto';

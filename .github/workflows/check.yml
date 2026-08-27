@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - '**.md'
       - '.gitignore'
-      - 'assets/**'
+      - '../../brand/**'
       - '.github/**'
       - '!.github/workflows/check.yml'
 
@@ -18,7 +18,7 @@ on:
     paths-ignore:
       - '**.md'
       - '.gitignore'
-      - 'assets/**'
+      - '../../brand/**'
       - '.github/**'
       - '!.github/workflows/check.yml'
 

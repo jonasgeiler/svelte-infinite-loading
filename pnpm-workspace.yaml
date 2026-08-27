@@ -1,2 +1,7 @@
+############################
+#     pnpm config file     #
+# https://pnpm.io/settings #
+############################
+
 allowBuilds:
   esbuild: true

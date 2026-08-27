@@ -1,0 +1,22 @@
+################################################################################################################################################################
+#                                                               GitHub release notes config file                                                               #
+# https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes#configuring-automatically-generated-release-notes #
+################################################################################################################################################################
+
+changelog:
+  categories:
+    - title: BREAKING CHANGES
+      labels:
+        - breaking
+
+    - title: General
+      labels:
+        - '*'
+      exclude:
+        labels:
+          - breaking
+          - dependencies
+
+    - title: Dependencies
+      labels:
+        - dependencies
