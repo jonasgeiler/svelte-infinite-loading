@@ -1,0 +1,73 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+env:
+  # If the SemVer tag contains a hyphen (e.g., v1.0.0-beta.1) or
+  # starts with "v0." (e.g., v0.5.0), consider it a pre-release.
+  IS_PRERELEASE: ${{ contains(github.ref_name, '-') || startsWith(github.ref_name, 'v0.') }}
+
+jobs:
+  pre-check:
+    name: Pre-Check
+    uses: ./.github/workflows/check.yaml
+    with:
+      skip-build: true
+
+  publish-package-and-create-github-release:
+    name: Publish package and create GitHub release
+    needs: pre-check
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash --noprofile --norc -euxo pipefail {0}
+
+    permissions:
+      id-token: write # Required for OIDC.
+      contents: write # Required to create GitHub releases.
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version-file: package.json
+          registry-url: https://registry.npmjs.org
+          # Never use caching in release builds, as recommended by npm Docs.
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Replace GitHub-flavored Markdown alerts with standard Markdown
+        run: sed -i 's/^> *\[\!\([a-zA-Z]\)\([a-zA-Z]*\)\] */> **\U\1\L\2**  /g' ./*.md
+        # Basically replaces:
+        # > [!NOTE]
+        # with:
+        # > **Note**
+
+      - name: Stage publishing package to npmjs.com
+        env:
+          TAG: ${{ env.IS_PRERELEASE == 'true' && 'next' || 'latest' }}
+        run: npm publish --access=public --no-git-checks --tag="${TAG}"
+
+      - name: Create package tarball
+        run: npm pack
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe # v2.4.2
+        with:
+          draft: true
+          prerelease: ${{ env.IS_PRERELEASE }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: |
+            svelte-infinite-loading-*.tgz
