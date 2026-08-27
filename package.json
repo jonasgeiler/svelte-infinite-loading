@@ -6,6 +6,11 @@
   "main": "dist/svelte-infinite-loading.js",
   "module": "dist/svelte-infinite-loading.mjs",
   "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "svelte": "./src/index.js"
+    }
+  },
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src/** test/**",
