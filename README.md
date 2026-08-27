@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/jonasgeiler/svelte-infinite-loading/master/assets/InfiniteLogo.svg" alt="InfiniteLogo" width="225"></p>
+<p align="center"><img src="./static/logo.svg" alt="InfiniteLogo" width="225"></p>
 <h2 align="center">svelte-infinite-loading</h2>
 <p align="center">An infinite scroll component for Svelte apps</p>
 <p align="center">

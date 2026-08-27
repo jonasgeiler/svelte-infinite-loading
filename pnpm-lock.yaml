@@ -35,6 +35,9 @@ importers:
       '@vitest/browser-playwright':
         specifier: ^4.1.8
         version: 4.1.11(playwright@1.62.1)(vite@8.2.2(@types/node@24.13.3)(yaml@2.9.0))(vitest@4.1.11)
+      beercss:
+        specifier: 3.6.13
+        version: 3.6.13
       eslint:
         specifier: ^10.4.1
         version: 10.9.1
@@ -50,6 +53,15 @@ importers:
       lint-staged:
         specifier: ^17.3.0
         version: 17.3.0
+      marked:
+        specifier: ^18.0.11
+        version: 18.0.11
+      marked-base-url:
+        specifier: ^1.1.10
+        version: 1.1.10(marked@18.0.11)
+      marked-gfm-heading-id:
+        specifier: ^4.1.4
+        version: 4.1.4(marked@18.0.11)
       playwright:
         specifier: ^1.60.0
         version: 1.62.1
@@ -68,6 +80,9 @@ importers:
       svelte-check:
         specifier: ^4.6.0
         version: 4.7.6(picomatch@4.0.7)(svelte@5.56.10)(typescript@6.0.3)
+      svelte-tiny-virtual-list:
+        specifier: ^4.0.0
+        version: 4.0.0(svelte@5.56.10)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -217,6 +232,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@material/material-color-utilities@0.3.0':
+    resolution: {integrity: sha512-ztmtTd6xwnuh2/xu+Vb01btgV8SQWYCaK56CkRK8gEkWe5TuDyBcYJ0wgkMRn+2VcE9KUmhvkz+N9GHrqw/C0g==}
 
   '@oxc-project/types@0.146.0':
     resolution: {integrity: sha512-XC0QsnnhVe7sLIWmYmdPw7x5P0h4W8vUU3Nv1ySgWXtvCz8NizoAEpGXA0sOYoJQV2Rl13LgURAHQ5cI5ILCSA==}
@@ -478,6 +496,9 @@ packages:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
 
+  beercss@3.6.13:
+    resolution: {integrity: sha512-U9BO4s6azfV54xcsMLslfVYajkihVn41IzeN0FI/ZZzimrh8DB3s3X/sfMDxSqVOfoZv3MDaM6CyqKNn7s6gnQ==}
+
   brace-expansion@5.0.9:
     resolution: {integrity: sha512-ScQ4IuvIEF1TMlP7Zt+vjJ//9zlPb2SDcxWxM3bk8s6t6GGdJ7KO1dCcTidOPJKePW30LE/2cT7wCyPho9/Wxg==}
     engines: {node: 20 || >=22}
@@ -678,6 +699,9 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
+  github-slugger@2.0.0:
+    resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
+
   glob-parent@6.0.2:
     resolution: {integrity: sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==}
     engines: {node: '>=10.13.0'}
@@ -830,6 +854,25 @@ packages:
 
   magic-string@1.2.2:
     resolution: {integrity: sha512-veT/+7iXrXzT39XnEN4lOxtNl72dMgJ8Lp+5Bd6YcMSWpb0n0MjBM8Uuooi6jgJr8dhUW2swQgBmoZVMni5SVg==}
+
+  marked-base-url@1.1.10:
+    resolution: {integrity: sha512-Szoa+MAjZg1eiDiYrzK3JwJrgRPG7gvVyf858eOonKJKJB2JGP+Z6V83gvH85labGN1VHPgANq3Jk4V47u9xAA==}
+    peerDependencies:
+      marked: '>= 4 < 19'
+
+  marked-gfm-heading-id@4.1.4:
+    resolution: {integrity: sha512-CspnvVfHSkb/znqdPS4jUR8HtCjq3M/DnrsJCrfLBLvdrgbemmoINKpeWKQYkBiXAoBGejw0cV7xzqrPdup3WA==}
+    peerDependencies:
+      marked: '>=13 <19'
+
+  marked@18.0.11:
+    resolution: {integrity: sha512-HnslJfsZkRPBDJRHvVtAaWlZHEpSu7u8LgQuJCELjRKuWR+hpq4A7sLq3p8HaI9ypVoXDXxV34CsQJEe1+J5Aw==}
+    engines: {node: '>= 20'}
+    hasBin: true
+
+  material-dynamic-colors@1.1.4:
+    resolution: {integrity: sha512-0HnLNoxDC/+pCTfhOgvSeqQKXO8n6PLO1D3IwtYr0Gg2SR2pGxft5nNngajVvtEADzXtxWvinmTdig+lUJqkxg==}
+    hasBin: true
 
   minimatch@10.2.6:
     resolution: {integrity: sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==}
@@ -1035,6 +1078,12 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-tiny-virtual-list@4.0.0:
+    resolution: {integrity: sha512-SrsI2dTYBAnzWeOhZ6fUX0qA3olSvsFeonIvEnyzvPL3AEsKropuSdRCPud84oCV53y6ztcawvs83Qnt0lux2A==}
+    engines: {node: '>=20.17.0'}
+    peerDependencies:
+      svelte: ^5.0.0
 
   svelte2tsx@0.7.61:
     resolution: {integrity: sha512-EpQ/+UHITBULeUojx/LLD3uTYasZXcX1BrqlrzfLUnT9vdUhaOWK59a3ryWcFU8L0sY1SP+gRhJ2Beiis98+qw==}
@@ -1331,6 +1380,8 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
+  '@material/material-color-utilities@0.3.0': {}
+
   '@oxc-project/types@0.146.0': {}
 
   '@playwright/test@1.62.1':
@@ -1559,6 +1610,10 @@ snapshots:
 
   balanced-match@4.0.4: {}
 
+  beercss@3.6.13:
+    dependencies:
+      material-dynamic-colors: 1.1.4
+
   brace-expansion@5.0.9:
     dependencies:
       balanced-match: 4.0.4
@@ -1748,6 +1803,8 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
+  github-slugger@2.0.0: {}
+
   glob-parent@6.0.2:
     dependencies:
       is-glob: 4.0.3
@@ -1863,6 +1920,21 @@ snapshots:
   magic-string@1.2.2:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  marked-base-url@1.1.10(marked@18.0.11):
+    dependencies:
+      marked: 18.0.11
+
+  marked-gfm-heading-id@4.1.4(marked@18.0.11):
+    dependencies:
+      github-slugger: 2.0.0
+      marked: 18.0.11
+
+  marked@18.0.11: {}
+
+  material-dynamic-colors@1.1.4:
+    dependencies:
+      '@material/material-color-utilities': 0.3.0
 
   minimatch@10.2.6:
     dependencies:
@@ -2043,6 +2115,10 @@ snapshots:
       postcss-selector-parser: 7.1.5
       semver: 7.8.5
     optionalDependencies:
+      svelte: 5.56.10
+
+  svelte-tiny-virtual-list@4.0.0(svelte@5.56.10):
+    dependencies:
       svelte: 5.56.10
 
   svelte2tsx@0.7.61(svelte@5.56.10)(typescript@6.0.3):
