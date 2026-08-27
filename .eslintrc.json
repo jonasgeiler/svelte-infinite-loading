@@ -1,16 +1,20 @@
 {
 	"extends": "eslint:recommended",
-	"parserOptions": {
-		"ecmaVersion": 9,
-		"sourceType": "module"
-	},
-	"plugins": ["svelte3"],
+	"plugins": ["svelte"],
 	"overrides": [
 		{
-			"files": ["*.svelte"],
-			"processor": "svelte3/svelte3"
+			"files": ["**/*.svelte"],
+			"parser": "svelte-eslint-parser",
+			"extends": ["plugin:svelte/recommended"],
+			"parserOptions": {
+				"parser": "espree"
+			}
 		}
 	],
+	"parserOptions": {
+		"ecmaVersion": 2020,
+		"sourceType": "module"
+	},
 	"env": {
 		"es6": true,
 		"browser": true,

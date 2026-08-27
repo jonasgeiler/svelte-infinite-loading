@@ -1,8 +1,5 @@
-require('@testing-library/jest-dom/extend-expect');
-
-const { render /*, fireEvent*/ } = require('@testing-library/svelte');
-
-const Spinner = require('../src/Spinner.svelte');
+import { render } from '@testing-library/svelte';
+import Spinner from '../src/Spinner.svelte';
 
 
 
@@ -17,7 +14,7 @@ function testDefaultAnimation(container) {
 }
 
 test('shows default animation when spinner prop set to default', () => {
-	const { container } = render(Spinner, { spinner: 'default' });
+	const { container } = render(Spinner, { props: { spinner: 'default' } });
 	expect(container).toBeInTheDocument();
 
 	testDefaultAnimation(container);
@@ -52,7 +49,7 @@ function testWaveDotsAnimation(container) {
 }
 
 test('shows wave dots animation when spinner prop set to wavedots', () => {
-	const { container } = render(Spinner, { spinner: 'wavedots' });
+	const { container } = render(Spinner, { props: { spinner: 'wavedots' } });
 	expect(container).toBeInTheDocument();
 
 	testWaveDotsAnimation(container);
@@ -71,7 +68,7 @@ function testSpiralAnimation(container) {
 }
 
 test('shows spiral animation when spinner prop set to spiral', () => {
-	const { container } = render(Spinner, { spinner: 'spiral' });
+	const { container } = render(Spinner, { props: { spinner: 'spiral' } });
 	expect(container).toBeInTheDocument();
 
 	testSpiralAnimation(container);
@@ -99,7 +96,7 @@ function testCirclesAnimation(container) {
 }
 
 test('shows circles animation when spinner prop set to circles', () => {
-	const { container } = render(Spinner, { spinner: 'circles' });
+	const { container } = render(Spinner, { props: { spinner: 'circles' } });
 	expect(container).toBeInTheDocument();
 
 	testCirclesAnimation(container);
@@ -127,7 +124,7 @@ function testBubblesAnimation(container) {
 }
 
 test('shows bubbles animation when spinner prop set to bubbles', () => {
-	const { container } = render(Spinner, { spinner: 'bubbles' });
+	const { container } = render(Spinner, { props: { spinner: 'bubbles' } });
 	expect(container).toBeInTheDocument();
 
 	testBubblesAnimation(container);
@@ -136,7 +133,7 @@ test('shows bubbles animation when spinner prop set to bubbles', () => {
 
 
 test('updates animation when spinner prop changes', async () => {
-	const { container, component } = render(Spinner, { spinner: 'default' });
+	const { container, component } = render(Spinner, { props: { spinner: 'default' } });
 	expect(container).toBeInTheDocument();
 
 	testDefaultAnimation(container);

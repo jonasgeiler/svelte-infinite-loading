@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import { SvelteComponentTyped } from 'svelte';
+import { SvelteComponent } from 'svelte';
 
 
 export type SpinnerType = 'default' | 'bubbles' | 'circles' | 'spiral' | 'wavedots';
@@ -131,5 +131,5 @@ export interface InfiniteLoadingEvents {
 /**
  * InfiniteLoading component
  */
-export default class InfiniteLoading extends SvelteComponentTyped<InfiniteLoadingProps, InfiniteLoadingEvents, InfiniteLoadingSlots> {
+export default class InfiniteLoading extends SvelteComponent<InfiniteLoadingProps, InfiniteLoadingEvents, InfiniteLoadingSlots> {
 }

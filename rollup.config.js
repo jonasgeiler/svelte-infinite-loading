@@ -15,7 +15,7 @@ export default {
 	],
 	plugins: [
 		svelte({ emitCss: false }),
-		resolve()
+		resolve({ browser: true })
 	],
 
 	/* tests
