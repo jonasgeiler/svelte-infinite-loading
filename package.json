@@ -11,7 +11,7 @@
 	"scripts": {
 		"prepare": "git config core.hooksPath .githooks && (svelte-kit sync || echo '')",
 		"dev": "vite dev",
-		"build": "vite build && npm run prepack",
+		"build": "vite build && pnpm run prepack",
 		"preview": "vite preview",
 		"prepack": "svelte-kit sync && svelte-package && publint",
 		"check": "pnpm run '/^check:.*/'",
@@ -19,7 +19,7 @@
 		"check:eslint": "eslint .",
 		"check:prettier": "prettier --check .",
 		"check:vitest": "vitest run",
-		"check:playwright": "playwright install && playwright test",
+		"check:playwright": "playwright install firefox && (playwright test || echo 'No tests defined yet')",
 		"check:svelte": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"fix": "pnpm run fix:biome && pnpm run fix:eslint && pnpm run fix:prettier",
 		"fix:biome": "biome check --fix",

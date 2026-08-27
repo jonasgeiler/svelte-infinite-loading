@@ -62,13 +62,13 @@ export interface InfiniteLoadingSnippets {
 	 * This message will be displayed when there is no data, which means that we have called the complete()
 	 * method, before ever calling the loaded() method in the onInfinite event handler.
 	 */
-	noResults: Snippet;
+	noResults?: Snippet;
 
 	/**
 	 * This message will be displayed when there is no more data, which means we have called the loaded()
 	 * method at least once before calling the complete() method in the onInfinite event handler.
 	 */
-	noMore: Snippet;
+	noMore?: Snippet;
 
 	/**
 	 * This message will be displayed when loading has failed, which means that we have called the
@@ -76,14 +76,14 @@ export interface InfiniteLoadingSnippets {
 	 * The first argument passed to this snippet is `attemptLoad`, a function used to retry loading
 	 * data when called.
 	 */
-	error: Snippet<[() => void]>;
+	error?: Snippet<[() => void]>;
 
 	/**
 	 * This slot will be displayed when loading data, you can also use your own spinner here.
 	 * The first argument passed to this snippet is `isFirstLoad`, a boolean indicating whether this
 	 * is the first load before any data.
 	 */
-	spinner: Snippet<[boolean]>;
+	spinner?: Snippet<[boolean]>;
 }
 
 /**

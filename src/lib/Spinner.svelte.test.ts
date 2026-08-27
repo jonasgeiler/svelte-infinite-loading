@@ -4,11 +4,11 @@ import Spinner from './Spinner.svelte';
 
 test('renders default spinner when no spinnerType provided', async () => {
 	await render(Spinner);
-	const el = document.querySelector('.loading-default');
+	const el = document.querySelector<HTMLElement>('.loading-default');
 	await expect.element(el).toBeVisible();
 });
 
-const cases = [
+const cases: Array<[string, string, string | null, number]> = [
 	['bubbles', '.loading-bubbles', '.bubble-item', 8],
 	['circles', '.loading-circles', '.circle-item', 8],
 	['spiral', '.loading-spiral', null, 1],
@@ -18,7 +18,7 @@ const cases = [
 for (const [type, containerSelector, itemSelector, expectedCount] of cases) {
 	test(`renders ${type} spinner correctly`, async () => {
 		await render(Spinner, { spinnerType: type });
-		const container = document.querySelector(containerSelector);
+		const container = document.querySelector<HTMLElement>(containerSelector);
 		await expect.element(container).toBeVisible();
 		if (itemSelector) {
 			const items = document.querySelectorAll(itemSelector);

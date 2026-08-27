@@ -9,8 +9,7 @@
 	marked.use(gfmHeadingId());
 	const readmeHtml = marked.parse(
 		readme
-			// eslint-disable-next-line no-misleading-character-class
-			.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, '')
+			.replace(/^(?:\u200B|\u200C|\u200D|\u200E|\u200F|\uFEFF)/, '')
 			.replace(/.\/static\//g, './')
 	);
 </script>
