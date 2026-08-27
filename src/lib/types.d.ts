@@ -1,10 +1,7 @@
-/// <reference types="svelte" />
-import { SvelteComponent } from 'svelte';
-
+import { Snippet } from 'svelte';
 
 export type SpinnerType = 'default' | 'bubbles' | 'circles' | 'spiral' | 'wavedots';
 export type DirectionType = 'top' | 'bottom';
-
 
 /**
  * InfiniteLoading props
@@ -25,7 +22,7 @@ export interface InfiniteLoadingProps {
 	 *
 	 * @default 'default'
 	 */
-	spinner?: SpinnerType;
+	spinnerType?: SpinnerType;
 
 	/**
 	 * This property is used to set the load direction.
@@ -52,39 +49,42 @@ export interface InfiniteLoadingProps {
 	 * The component will be reset if this property has changed, just like recreating a new component, usually used when the list has
 	 * filters or tabs.
 	 *
-	 * @default +new Date()
+	 * @default Date.now()
 	 */
 	identifier?: any;
 }
 
-
 /**
- * InfiniteLoading slots
+ * InfiniteLoading snippets
  */
-export interface InfiniteLoadingSlots {
+export interface InfiniteLoadingSnippets {
 	/**
-	 * This message will be displayed when there is no data, which means that we have called the InfiniteEvent.details.complete
-	 * method, before ever calling the InfiniteEvent.details.loaded method.
+	 * This message will be displayed when there is no data, which means that we have called the complete()
+	 * method, before ever calling the loaded() method in the onInfinite event handler.
 	 */
-	noResults: {};
+	noResults?: Snippet;
 
 	/**
-	 * This message will be displayed when there is no more data, which means we have called the InfiniteEvent.details.loaded
-	 * method at least once before calling the InfiniteEvent.details.complete method.
+	 * This message will be displayed when there is no more data, which means we have called the loaded()
+	 * method at least once before calling the complete() method in the onInfinite event handler.
 	 */
-	noMore: {};
+	noMore?: Snippet;
 
 	/**
-	 * This message will be displayed when loading has failed, which means that we have called the InfiniteEvent.details.error method.
+	 * This message will be displayed when loading has failed, which means that we have called the
+	 * error() method in the onInfinite event handler.
+	 * The first argument passed to this snippet is `attemptLoad`, a function used to retry loading
+	 * data when called.
 	 */
-	error: { attemptLoad: () => void };
+	error?: Snippet<[() => void]>;
 
 	/**
 	 * This slot will be displayed when loading data, you can also use your own spinner here.
+	 * The first argument passed to this snippet is `isFirstLoad`, a boolean indicating whether this
+	 * is the first load before any data.
 	 */
-	spinner: { isFirstLoad: boolean };
+	spinner?: Snippet<[boolean]>;
 }
-
 
 /**
  * StateChanger object
@@ -97,8 +97,8 @@ export interface StateChanger {
 	loaded(): void;
 
 	/**
-	 * Inform the component that all the data has been loaded successfully. If the InfiniteEvent.details.loaded method has not
-	 * been called before this, the content of the noResults slot will be
+	 * Inform the component that all the data has been loaded successfully. If the loaded() method has not
+	 * been called before this in the onInfinite event handler, the content of the noResults slot will be
 	 * displayed, otherwise, the content of the noMore slot will be displayed.
 	 */
 	complete(): void;
@@ -117,19 +117,14 @@ export interface StateChanger {
 /**
  * Infinite event
  */
-export interface InfiniteEvent extends CustomEvent<StateChanger> {
-}
-
+type InfiniteEvent = (detail: StateChanger) => Promise<void> | void;
 
 /**
  * InfiniteLoading events
  */
 export interface InfiniteLoadingEvents {
-	infinite: InfiniteEvent;
-}
-
-/**
- * InfiniteLoading component
- */
-export default class InfiniteLoading extends SvelteComponent<InfiniteLoadingProps, InfiniteLoadingEvents, InfiniteLoadingSlots> {
+	/**
+	 * Called when the scroll distance is less than the `distance` property.
+	 */
+	onInfinite: InfiniteEvent;
 }

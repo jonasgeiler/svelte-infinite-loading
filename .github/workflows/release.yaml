@@ -11,8 +11,15 @@ env:
   IS_PRERELEASE: ${{ contains(github.ref_name, '-') || startsWith(github.ref_name, 'v0.') }}
 
 jobs:
+  pre-check:
+    name: Pre-Check
+    uses: ./.github/workflows/check.yaml
+    with:
+      skip-build: true
+
   publish-package-and-create-github-release:
     name: Publish package and create GitHub release
+    needs: pre-check
 
     runs-on: ubuntu-latest
     defaults:
@@ -29,6 +36,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+
       - name: Set up Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
@@ -38,7 +48,7 @@ jobs:
           package-manager-cache: false
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Replace GitHub-flavored Markdown alerts with standard Markdown
         run: sed -i 's/^> *\[\!\([a-zA-Z]\)\([a-zA-Z]*\)\] */> **\U\1\L\2**  /g' ./*.md
@@ -50,10 +60,10 @@ jobs:
       - name: Stage publishing package to npmjs.com
         env:
           TAG: ${{ env.IS_PRERELEASE == 'true' && 'next' || 'latest' }}
-        run: npm publish --access=public --no-git-checks --tag="${TAG}"
+        run: pnpm publish --access=public --no-git-checks --tag="${TAG}"
 
       - name: Create package tarball
-        run: npm pack
+        run: pnpm pack
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe # v2.4.2

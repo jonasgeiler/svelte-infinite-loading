@@ -1,6 +1,46 @@
+######################################
+#          Git ignore file           #
+# https://git-scm.com/docs/gitignore #
+######################################
+
+# OS
 .DS_Store
-node_modules
-test/public/bundle.js
-.idea
-dist
-pnpm-lock.yaml
+Thumbs.db
+
+# Editor/IDE
+.idea/*
+!.idea/externalDependencies.xml
+!.idea/icon.svg
+.vscode/*
+!.vscode/extensions.json
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+package-lock.json
+yarn.lock
+bun.lock
+bun.lockb
+
+# Env
+.env.local
+.env.*.local
+
+# Typescript
+*.tsbuildinfo
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Output
+.output/
+.vercel/
+.netlify/
+.wrangler/
+/.svelte-kit/
+/build/
+/dist/
+/test-results/
+*.tgz

@@ -1,0 +1,45 @@
+/***********************************************/
+/*              Biome config file              */
+/* https://biomejs.dev/guides/configure-biome/ */
+/***********************************************/
+
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true,
+		"defaultBranch": "main"
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"includes": ["**/*", "!**/*.svg"]
+	},
+	"formatter": {
+		"enabled": false
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "recommended",
+			"complexity": {
+				"noImportantStyles": "off"
+			},
+			"a11y": {
+				"noSvgWithoutTitle": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off"
+			}
+		}
+	},
+	"html": {
+		"experimentalFullSupportEnabled": true
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"preset": "recommended"
+		}
+	}
+}
