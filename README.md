@@ -10,8 +10,10 @@
   <a href="#about">About</a> •
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
-  <a href="#documentation">Documentation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#api">API</a> •
   <a href="#examples--demo">Examples</a> •
+  <a href="#development">Development</a> •
   <a href="#license">License</a>
 </p>
 
@@ -61,6 +63,77 @@ From CDN (via [unpkg](https://unpkg.com/)):
 <script src="https://unpkg.com/svelte-infinite-loading@^1/dist/svelte-infinite-loading.mjs"></script>
 ```
 
+## Usage
+
+```svelte
+<script lang="ts">
+	import InfiniteLoading, { type StateChanger } from 'svelte-infinite-loading';
+
+	type Post = { id: number; title: string };
+
+	let page = 0;
+	const pageSize = 20;
+	let items: Post[] = $state([]);
+	async function loadMore(stateChanger: StateChanger) {
+		try {
+			const res = await fetch(`/api/posts?page=${page}&limit=${pageSize}`);
+			const data = (await res.json()) as Post[];
+
+			if (data.length === 0) {
+				stateChanger.complete();
+				return;
+			}
+
+			items = [...items, ...data];
+			page += 1;
+			stateChanger.loaded();
+		} catch {
+			stateChanger.error();
+		}
+	}
+</script>
+
+<ul>
+	{#each items as item (item.id)}
+		<li>{item.title}</li>
+	{/each}
+</ul>
+
+<InfiniteLoading onInfinite={loadMore} />
+```
+
+## API
+
+### Props
+
+| Prop                      | Type                                                            | Default      | Description                                                                                                                                              |
+| ------------------------- | --------------------------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `distance`                | `number`                                                        | `100`        | Triggers `onInfinite` when the remaining scroll distance reaches this threshold (top or bottom depending on `direction`).                                |
+| `spinnerType`             | `'default' \| 'bubbles' \| 'circles' \| 'spiral' \| 'wavedots'` | `'default'`  | Selects a built-in spinner. You can also override with the `spinner` snippet.                                                                            |
+| `direction`               | `'top' \| 'bottom'`                                             | `'bottom'`   | Sets the loading direction.                                                                                                                              |
+| `forceUseInfiniteWrapper` | `boolean \| string`                                             | `false`      | Controls which scroll container is used: `true` for nearest `infinite-wrapper` / `data-infinite-wrapper`, string for CSS selector, fallback to `window`. |
+| `identifier`              | `any`                                                           | `Date.now()` | Resets the component when the value changes (useful for filters/tabs).                                                                                   |
+
+### Event
+
+`onInfinite(stateChanger: StateChanger) => Promise<void> | void`
+
+Fires when the threshold (`distance`) is reached. Use `stateChanger` methods to drive state:
+
+- `stateChanger.loaded()` marks a successful load and keeps listening.
+- `stateChanger.complete()` ends loading and shows either `noResults` (if nothing loaded yet) or `noMore`.
+- `stateChanger.error()` shows the error snippet.
+- `stateChanger.reset()` resets the component (equivalent to changing `identifier`).
+
+### Snippets
+
+| Snippet     | Signature               | Default behavior                                                       |
+| ----------- | ----------------------- | ---------------------------------------------------------------------- |
+| `noResults` | `Snippet`               | Shown when `complete()` is called before any `loaded()`.               |
+| `noMore`    | `Snippet`               | Shown when `complete()` is called after at least one `loaded()`.       |
+| `error`     | `Snippet<[() => void]>` | Shown when `error()` is called. Receives `attemptLoad` retry callback. |
+| `spinner`   | `Snippet<[boolean]>`    | Shown while loading. Receives `isFirstLoad` flag.                      |
+
 ## Examples / Demo
 
 - [Hacker News](https://svelte.dev/repl/c053fb0b13154b07a503ac04e0cb2c66)
@@ -68,11 +141,35 @@ From CDN (via [unpkg](https://unpkg.com/)):
 - [Hacker News with Top Direction](https://svelte.dev/repl/9a04b19fcf5f4da0bead27f1cdf55cfb)
 - [Hacker News using svelte-tiny-virtual-list](https://svelte.dev/repl/2239cc4c861c41d18abbc858248f5a0d)
 
-For more information on how to use this library, check the [documentation](https://github.com/jonasgeiler/svelte-infinite-loading/wiki)!
+## Development
 
-## Documentation
+### Developing
 
-You can find the documentation in the [repository wiki](https://github.com/jonasgeiler/svelte-infinite-loading/wiki)
+```sh
+npm run dev
+npm run dev -- --open
+```
+
+Everything inside `src/lib` is part of the library. Everything inside `src/routes` can be used as a showcase or preview app.
+
+### Building
+
+```sh
+npm pack
+npm run build
+```
+
+Preview production build:
+
+```sh
+npm run preview
+```
+
+### Publishing
+
+```sh
+npm publish
+```
 
 ## License
 
