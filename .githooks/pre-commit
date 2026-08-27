@@ -5,4 +5,6 @@ set -euo pipefail -x
 # https://git-scm.com/docs/githooks #
 #####################################
 
+export PATH="node_modules/.bin:${PATH}"
+
 lint-staged --verbose
