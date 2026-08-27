@@ -1,4 +1,4 @@
-<p align="center"><img src="./static/logo.svg" alt="InfiniteLogo" width="225"></p>
+<p align="center"><img src="./static/logo.svg" alt="Logo" width="225"></p>
 <h2 align="center">svelte-infinite-loading</h2>
 <p align="center">An infinite scroll component for Svelte apps</p>
 <p align="center">
@@ -31,36 +31,22 @@ This is heavily inspired by [vue-infinite-loading](https://peachscript.github.io
 
 ## Installation
 
-> If you're using this component in a Sapper application, make sure to install the package to `devDependencies`!  
-> [More Details](https://github.com/sveltejs/sapper-template#using-external-components)
-
-With npm:
+With [npm](https://www.npmjs.com/):
 
 ```shell
 $ npm install svelte-infinite-loading
 ```
 
-With yarn:
+With [yarn](https://yarnpkg.com/):
 
 ```shell
 $ yarn add svelte-infinite-loading
 ```
 
-With [pnpm](https://pnpm.js.org/) (recommended):
+With [pnpm](https://pnpm.io/):
 
 ```shell
-$ npm i -g pnpm
 $ pnpm install svelte-infinite-loading
-```
-
-From CDN (via [unpkg](https://unpkg.com/)):
-
-```html
-<!-- UMD -->
-<script src="https://unpkg.com/svelte-infinite-loading@^1/dist/svelte-infinite-loading.js"></script>
-
-<!-- ES Module -->
-<script src="https://unpkg.com/svelte-infinite-loading@^1/dist/svelte-infinite-loading.mjs"></script>
 ```
 
 ## Usage
@@ -168,7 +154,8 @@ npm run preview
 ### Publishing
 
 ```sh
-npm publish
+pnpm version <major|minor|patch|premajor|preminor|prepatch|prerelease>
+git push --follow-tags
 ```
 
 ## License
