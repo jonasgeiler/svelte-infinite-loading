@@ -45,7 +45,7 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
-          pnpm exec playwright install firefox --with-deps
+          pnpm exec playwright install chromium --with-deps
 
       - name: Run all checks
         run: pnpm run check
