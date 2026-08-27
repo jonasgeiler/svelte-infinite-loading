@@ -1,8 +1,9 @@
 <script>
-	export let spinner = '';
+	/** @type {{ spinnerType: string }} */
+	let { spinnerType = '' } = $props();
 </script>
 
-{#if spinner === 'bubbles'}
+{#if spinnerType === 'bubbles'}
 
 	<!-- BUBBLES -->
 	<span class="loading-bubbles">
@@ -16,7 +17,7 @@
 		<span class="bubble-item"></span>
 	</span>
 
-{:else if spinner === 'circles'}
+{:else if spinnerType === 'circles'}
 
 	<!-- CIRCLES -->
 	<span class="loading-circles">
@@ -30,12 +31,12 @@
 		<span class="circle-item"></span>
 	</span>
 
-{:else if spinner === 'spiral'}
+{:else if spinnerType === 'spiral'}
 
 	<!-- SPIRAL -->
 	<i class="loading-spiral"></i>
 
-{:else if spinner === 'wavedots'}
+{:else if spinnerType === 'wavedots'}
 
 	<!-- WAVEDOTS -->
 	<span class="loading-wave-dots">

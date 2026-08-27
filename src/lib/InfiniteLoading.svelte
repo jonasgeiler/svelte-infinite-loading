@@ -1,4 +1,7 @@
-<script context="module">
+<script>
+	import { onDestroy, onMount, tick, untrack } from 'svelte';
+	import Spinner from './Spinner.svelte';
+	/** @import { InfiniteLoadingProps, InfiniteLoadingEvents, InfiniteLoadingSnippets } from './types.js'; */
 
 	const THROTTLE_LIMIT = 50;
 	const LOOP_CHECK_TIMEOUT = 1000;
@@ -21,35 +24,18 @@
 	].join('\n');
 
 
-	/**
-	 * the third argument for event bundler
-	 * @see https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
-	 */
-	const thirdEventArg = (() => {
-		let supportsPassive = false;
-
-		try {
-			const opts = Object.defineProperty({}, 'passive', {
-				get() {
-					supportsPassive = { passive: true };
-					return true;
-				},
-			});
-
-			window.addEventListener('testPassive', null, opts);
-			window.removeEventListener('testPassive', null, opts);
-		} catch (e) {
-			//
-		}
-
-		return supportsPassive;
-	})();
-
+	/** @type {AddEventListenerOptions} */
+	const eventListenerOptions = { passive: true };
 
 	const throttler = {
+		/** @type {ReturnType<typeof setTimeout>[]} */
 		timers: [],
+		/** @type {Array<() => void>} */
 		caches: [],
 
+		/**
+		 * @param {() => void} fn
+		 */
 		throttle(fn) {
 			if (this.caches.indexOf(fn) === -1) {
 				// cache current handler
@@ -78,23 +64,23 @@
 		},
 	};
 
-
 	const loopTracker = {
 		isChecked: false,
-		timer:     null,
-		times:     0,
+		/** @type {ReturnType<typeof setTimeout> | undefined} */
+		timer: undefined,
+		times: 0,
 
 		track() {
 			// record track times
 			this.times += 1;
 
 			// try to mark check status
-			clearTimeout(this.timer);
+			if (this.timer !== undefined) clearTimeout(this.timer);
 			this.timer = setTimeout(() => {
 				this.isChecked = true;
 			}, LOOP_CHECK_TIMEOUT);
 
-			// throw warning if the times of continuous calls large than the maximum times
+			// throw warning if the times of continuous calls larger than the maximum times
 			if (this.times > LOOP_CHECK_MAX_CALLS) {
 				console.error(ERROR_INFINITE_LOOP);
 				this.isChecked = true;
@@ -102,14 +88,23 @@
 		},
 	};
 
-
+	/** @typedef {HTMLElement & { _infiniteScrollHeight?: number }} ScrollStorageElement */
 	const scrollBarStorage = {
-		key: '_infiniteScrollHeight',
+		key: /** @type {const} */('_infiniteScrollHeight'),
 
+		/**
+		 * @param {Window | HTMLElement} element
+		 * @returns {ScrollStorageElement}
+		 */
 		getScrollElement(element) {
-			return element === window ? document.documentElement : element;
+			return element === window
+				? /** @type {ScrollStorageElement} */(document.documentElement)
+				: /** @type {ScrollStorageElement} */(element);
 		},
 
+		/**
+		 * @param {Window | HTMLElement} element
+		 */
 		save(element) {
 			const target = this.getScrollElement(element);
 
@@ -117,37 +112,40 @@
 			target[this.key] = target.scrollHeight;
 		},
 
+		/**
+		 * @param {Window | HTMLElement} element
+		 */
 		restore(element) {
 			const target = this.getScrollElement(element);
 
-			/* istanbul ignore else */
-			if (typeof target[this.key] === 'number') {
-				target.scrollTop = target.scrollHeight - target[this.key] + target.scrollTop;
+			const previousScrollHeight = target[this.key];
+			if (typeof previousScrollHeight === 'number') {
+				target.scrollTop = target.scrollHeight - previousScrollHeight + target.scrollTop;
 			}
 
 			this.remove(target);
 		},
 
+		/**
+		 * @param {ScrollStorageElement} element
+		 */
 		remove(element) {
 			if (element[this.key] !== undefined) {
 				// remove scroll height
-				delete element[this.key]; // eslint-disable-line no-param-reassign
+				delete element[this.key];
 			}
 		},
 	};
 
-
+	/**
+	 * @param {HTMLElement | undefined} element
+	 * @returns {boolean}
+	 */
 	function isVisible(element) {
-		return element && (element.offsetWidth + element.offsetHeight) > 0;
+		return !!element && (element.offsetWidth + element.offsetHeight) > 0;
 	}
-</script>
 
-<script>
-	import { onMount, onDestroy, tick, createEventDispatcher } from 'svelte';
-	import Spinner from './Spinner.svelte';
-
-	const dispatch = createEventDispatcher();
-
+	/** @enum {number} */
 	const STATUS = {
 		READY:    0,
 		LOADING:  1,
@@ -155,22 +153,37 @@
 		ERROR:    3,
 	};
 
-	export let distance = 100;
-	export let spinner = 'default';
-	export let direction = 'bottom';
-	export let forceUseInfiniteWrapper = false;
-	export let identifier = +new Date();
+	/** @type {InfiniteLoadingProps & InfiniteLoadingEvents & InfiniteLoadingSnippets} */
+	let {
+		/* Props: */
+		distance = 100,
+		spinnerType = 'default',
+		direction = 'bottom',
+		forceUseInfiniteWrapper = false,
+		identifier = Date.now(),
 
-	let isFirstLoad = true; // save the current loading whether it is the first loading
-	let status = STATUS.READY;
-	let mounted = false;
+		/* Events: */
+		onInfinite: handleInfinite,
+
+		/* Snippets: */
+		spinner: spinnerSnippet,
+		noResults: noResultsSnippet,
+		noMore: noMoreSnippet,
+		error: errorSnippet,
+	} = $props();
+
+	let isFirstLoad = $state(true); // save the current loading whether it is the first loading
+	let status = $state(STATUS.READY);
+	let mounted = $state(false);
+	/** @type {HTMLDivElement} */
 	let thisElement;
-	let scrollParent;
+	/** @type {Window | HTMLElement | undefined} */
+	let scrollParent = $state();
 
-	$: showSpinner = status === STATUS.LOADING;
-	$: showError = status === STATUS.ERROR;
-	$: showNoResults = status === STATUS.COMPLETE && isFirstLoad;
-	$: showNoMore = status === STATUS.COMPLETE && !isFirstLoad;
+	const showSpinner = $derived(status === STATUS.LOADING);
+	const showError = $derived(status === STATUS.ERROR);
+	const showNoResults = $derived(status === STATUS.COMPLETE && isFirstLoad);
+	const showNoMore = $derived(status === STATUS.COMPLETE && !isFirstLoad);
 
 	const stateChanger = {
 		loaded: async () => {
@@ -180,7 +193,7 @@
 				// wait for DOM updated
 				await tick();
 
-				scrollBarStorage.restore(scrollParent);
+				if (scrollParent) scrollBarStorage.restore(scrollParent);
 			}
 
 			if (status === STATUS.LOADING) {
@@ -192,19 +205,20 @@
 		complete: async () => {
 			status = STATUS.COMPLETE;
 
-			// force re-complation computed properties to fix the problem of get slot text delay
+			// force re-compute computed properties to fix the problem of get slot text delay
 			await tick();
 
-			scrollParent.removeEventListener('scroll', scrollHandler, thirdEventArg);
+			if (scrollParent) scrollParent.removeEventListener('scroll', scrollHandler, eventListenerOptions);
 		},
 
 		reset: () => {
 			status = STATUS.READY;
 			isFirstLoad = true;
 
-			scrollBarStorage.remove(scrollParent);
-
-			scrollParent.addEventListener('scroll', scrollHandler, thirdEventArg);
+			if (scrollParent) {
+				scrollBarStorage.remove(scrollBarStorage.getScrollElement(scrollParent));
+				scrollParent.addEventListener('scroll', scrollHandler, eventListenerOptions);
+			}
 
 			// wait for list to be empty and the empty action may trigger a scroll event
 			setTimeout(() => {
@@ -220,6 +234,9 @@
 	};
 
 
+	/**
+	 * @param {Event} [event]
+	 */
 	function scrollHandler(event) {
 		if (status === STATUS.READY) {
 			if (event && event.constructor === Event && isVisible(thisElement)) {
@@ -230,7 +247,10 @@
 		}
 	}
 
-	// Attempt to trigger load
+	/**
+	 * Attempt to trigger load
+	 * @param {boolean} [isContinuousCall]
+	 */
 	async function attemptLoad(isContinuousCall) {
 		if (status !== STATUS.COMPLETE && isVisible(thisElement) && getCurrentDistance() <= distance) {
 			status = STATUS.LOADING;
@@ -239,10 +259,10 @@
 				// wait for spinner display
 				await tick();
 
-				scrollBarStorage.save(scrollParent);
+				if (scrollParent) scrollBarStorage.save(scrollParent);
 			}
 
-			dispatch('infinite', stateChanger);
+			await handleInfinite?.(stateChanger);
 
 			if (isContinuousCall && !forceUseInfiniteWrapper && !loopTracker.isChecked) {
 				// check this component whether be in an infinite loop if it is not checked
@@ -253,28 +273,39 @@
 		}
 	}
 
-	// Get current distance from the specified direction
+	/**
+	 * Get current distance from the specified direction
+	 * @returns {number}
+	 */
 	function getCurrentDistance() {
-		let distance;
+		if (!scrollParent) return 0;
 
 		if (direction === 'top') {
-			distance = typeof scrollParent.scrollTop === 'number' ? scrollParent.scrollTop : scrollParent.pageYOffset;
-		} else {
-			const infiniteElementOffsetTopFromBottom = thisElement.getBoundingClientRect().top;
-			const scrollElementOffsetTopFromBottom = scrollParent === window ? window.innerHeight : scrollParent.getBoundingClientRect().bottom;
-
-			distance = infiniteElementOffsetTopFromBottom - scrollElementOffsetTopFromBottom;
+			return scrollParent === window
+				? window.pageYOffset
+				: /** @type {HTMLElement} */ (scrollParent).scrollTop;
 		}
 
-		return distance;
+		const infiniteElementOffsetTopFromBottom = thisElement.getBoundingClientRect().top;
+		const scrollElementOffsetTopFromBottom = scrollParent === window
+			? window.innerHeight
+			: /** @type {HTMLElement} */ (scrollParent).getBoundingClientRect().bottom;
+		return infiniteElementOffsetTopFromBottom - scrollElementOffsetTopFromBottom;
 	}
 
-	// Get the first scroll parent of an element
+	/**
+	 * Get the first scroll parent of an element
+	 * @param {HTMLElement | null | undefined} [element]
+	 * @returns {Window | HTMLElement}
+	 */
 	function getScrollParent(element = thisElement) {
+		if (!element) return window;
+
+		/** @type {Window | HTMLElement | null | undefined} */
 		let result;
 
 		if (typeof forceUseInfiniteWrapper === 'string') {
-			result = document.querySelector(forceUseInfiniteWrapper);
+			result = /** @type {HTMLElement} */(document.querySelector(forceUseInfiniteWrapper));
 		}
 
 		if (!result) {
@@ -287,7 +318,7 @@
 			}
 		}
 
-		return result || getScrollParent(element.parentNode);
+		return result || getScrollParent(element.parentElement);
 	}
 
 	function updateScrollParent() {
@@ -299,25 +330,40 @@
 	}
 
 	// Watch forceUseInfiniteWrapper and mounted
-	$: forceUseInfiniteWrapper, mounted, updateScrollParent();
+	$effect(() => {
+		forceUseInfiniteWrapper;
+		mounted;
+
+		untrack(updateScrollParent);
+	});
 
 	// Watch identifier and mounted
-	$: identifier, mounted, identifierUpdated();
+	$effect(() => {
+		identifier;
+		mounted;
+
+		untrack(identifierUpdated);
+	});
 
 	onMount(async () => {
 		mounted = true;
+		updateScrollParent();
 
 		setTimeout(() => {
+			if (!scrollParent) return;
+
 			scrollHandler();
-			scrollParent.addEventListener('scroll', scrollHandler, thirdEventArg);
+			scrollParent.addEventListener('scroll', scrollHandler, eventListenerOptions);
 		}, 1);
 	});
 
 	onDestroy(() => {
 		if (mounted && status !== STATUS.COMPLETE) {
 			throttler.reset();
-			scrollBarStorage.remove(scrollParent);
-			scrollParent.removeEventListener('scroll', scrollHandler, thirdEventArg);
+			if (scrollParent) {
+				scrollBarStorage.remove(scrollBarStorage.getScrollElement(scrollParent));
+				scrollParent.removeEventListener('scroll', scrollHandler, eventListenerOptions);
+			}
 		}
 	});
 </script>
@@ -325,37 +371,45 @@
 <div class="infinite-loading-container" bind:this={thisElement}>
 	{#if showSpinner}
 		<div class="infinite-status-prompt">
-			<slot name="spinner" {isFirstLoad}>
-				<Spinner {spinner} />
-			</slot>
+			{#if spinnerSnippet}
+				{@render spinnerSnippet(isFirstLoad)}
+			{:else}
+				<Spinner {spinnerType} />
+			{/if}
 		</div>
 	{/if}
 
 	{#if showNoResults}
 		<div class="infinite-status-prompt">
-			<slot name="noResults">
-				No results :(
-			</slot>
+			{#if noResultsSnippet}
+				{@render noResultsSnippet()}
+			{:else}
+				No results.
+			{/if}
 		</div>
 	{/if}
 
 	{#if showNoMore}
 		<div class="infinite-status-prompt">
-			<slot name="noMore">
-				No more data :)
-			</slot>
+			{#if noMoreSnippet}
+				{@render noMoreSnippet()}
+			{:else}
+				You have reached the end.
+			{/if}
 		</div>
 	{/if}
 
 	{#if showError}
 		<div class="infinite-status-prompt">
-			<slot name="error" {attemptLoad}>
-				Oops, something went wrong :(
+			{#if errorSnippet}
+				{@render errorSnippet(attemptLoad)}
+			{:else}
+				Something went wrong. Please retry later.
 				<br>
-				<button class="btn-try-infinite" on:click={attemptLoad}>
+				<button class="btn-try-infinite" onclick={() => void attemptLoad()}>
 					Retry
 				</button>
-			</slot>
+			{/if}
 		</div>
 	{/if}
 </div>
