@@ -3,11 +3,11 @@
 /* https://eslint.org/docs/latest/use/configure/configuration-files */
 /********************************************************************/
 
-import prettier from 'eslint-config-prettier';
 import path from 'node:path';
 import js from '@eslint/js';
-import svelte from 'eslint-plugin-svelte';
 import { defineConfig, includeIgnoreFile } from 'eslint/config';
+import prettier from 'eslint-config-prettier';
+import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');

@@ -1,7 +1,7 @@
 <script>
 	import VirtualList from 'svelte-tiny-virtual-list';
-	import InfiniteLoading from '$lib/InfiniteLoading.svelte';
 	import { asset } from '$app/paths';
+	import InfiniteLoading from '$lib/InfiniteLoading.svelte';
 
 	const api =
 		'https://hn.algolia.com/api/v1/search_by_date' +
@@ -27,7 +27,7 @@
 				}
 			})
 			.catch(() => error());
-	}
+	};
 
 	/**
 	 * @param {string} url
@@ -63,7 +63,7 @@
 </script>
 
 <svelte:head>
-	<title>Hacker News with Virtual List | svelte-tiny-virtual-list</title>
+	<title>Hacker News with Virtual List | svelte-infinite-loading</title>
 </svelte:head>
 
 <div id="hacker-news-with-virtual-list-demo" class="demo-page flex-1 flex flex-column">
@@ -93,10 +93,10 @@
 							</a>
 							{#if list[index].url}
 								(<a
-								class="hacker-news-link"
-								href="https://news.ycombinator.com/from?site={formatSite(list[index].url)}"
-								target="_blank">{formatSite(list[index].url)}</a
-							>)
+									class="hacker-news-link"
+									href="https://news.ycombinator.com/from?site={formatSite(list[index].url)}"
+									target="_blank">{formatSite(list[index].url)}</a
+								>)
 							{/if}
 						</div>
 						<div class="truncate">
@@ -117,7 +117,7 @@
 								class="hacker-news-link"
 								target="_blank"
 								href="https://news.ycombinator.com/item?id={list[index].story_id}"
-							>{list[index].num_comments} comments</a
+								>{list[index].num_comments} comments</a
 							>
 						</div>
 					</article>

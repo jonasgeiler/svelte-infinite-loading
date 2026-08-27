@@ -21,8 +21,20 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"preset": "recommended"
+			"preset": "recommended",
+			"complexity": {
+				"noImportantStyles": "off"
+			},
+			"a11y": {
+				"noSvgWithoutTitle": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off"
+			}
 		}
+	},
+	"html": {
+		"experimentalFullSupportEnabled": true
 	},
 	"assist": {
 		"enabled": true,

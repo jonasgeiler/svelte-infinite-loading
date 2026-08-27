@@ -1,7 +1,7 @@
 <script>
+	import { browser } from '$app/environment';
 	import { asset, resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import { browser } from '$app/environment';
 
 	if (browser) import('beercss/dist/cdn/beer.js');
 
@@ -73,27 +73,36 @@
 		<i aria-hidden="true">newspaper</i>
 		<div>Hacker News</div>
 	</a>
-	<a href={resolve('/demos/hacker-news-with-filter')} class:active={page.route.id === '/demos/hacker-news-with-filter'}>
+	<a
+		href={resolve('/demos/hacker-news-with-filter')}
+		class:active={page.route.id === '/demos/hacker-news-with-filter'}
+	>
 		<i aria-hidden="true">newspaper</i>
 		<div>Hacker News with Filter</div>
 	</a>
-	<a href={resolve('/demos/hacker-news-with-top-direction')} class:active={page.route.id === '/demos/hacker-news-with-top-direction'}>
+	<a
+		href={resolve('/demos/hacker-news-with-top-direction')}
+		class:active={page.route.id === '/demos/hacker-news-with-top-direction'}
+	>
 		<i aria-hidden="true">newspaper</i>
 		<div>Hacker News with Top Direction</div>
 	</a>
-	<a href={resolve('/demos/hacker-news-with-virtual-list')} class:active={page.route.id === '/demos/hacker-news-with-virtual-list'}>
+	<a
+		href={resolve('/demos/hacker-news-with-virtual-list')}
+		class:active={page.route.id === '/demos/hacker-news-with-virtual-list'}
+	>
 		<i aria-hidden="true">newspaper</i>
 		<div>Hacker News with Virtual List</div>
 	</a>
 
 	<div class="max"></div>
-	<button class="circle border" onclick={handleSwitchDarkMode}>
+	<button type="button" class="circle border" onclick={handleSwitchDarkMode}>
 		<i aria-hidden="true">{darkMode ? 'light_mode' : 'dark_mode'}</i>
 	</button>
 </nav>
 
 <nav class="top s m left-align">
-	<button class="circle transparent" onclick={() => (mobileMenuOpen = true)}>
+	<button type="button" class="circle transparent" onclick={() => (mobileMenuOpen = true)}>
 		<i aria-hidden="true">menu</i>
 	</button>
 	<i aria-hidden="true">
@@ -101,7 +110,7 @@
 	</i>
 	<h6 class="m">svelte-infinite-loading</h6>
 	<div class="max"></div>
-	<button class="circle border" onclick={handleSwitchDarkMode}>
+	<button type="button" class="circle border" onclick={handleSwitchDarkMode}>
 		<i aria-hidden="true">{darkMode ? 'light_mode' : 'dark_mode'}</i>
 	</button>
 </nav>
@@ -113,7 +122,7 @@
 			</i>
 			<h6 class="m">svelte-infinite-loading</h6>
 			<div class="max"></div>
-			<button class="transparent circle" onclick={() => (mobileMenuOpen = false)}>
+			<button type="button" class="transparent circle" onclick={() => (mobileMenuOpen = false)}>
 				<i aria-hidden="true">close</i>
 			</button>
 		</nav>

@@ -1,5 +1,5 @@
+import { expect, test } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { test, expect } from 'vitest';
 import Spinner from './Spinner.svelte';
 
 test('renders default spinner when no spinnerType provided', async () => {
@@ -12,7 +12,7 @@ const cases = [
 	['bubbles', '.loading-bubbles', '.bubble-item', 8],
 	['circles', '.loading-circles', '.circle-item', 8],
 	['spiral', '.loading-spiral', null, 1],
-	['wavedots', '.loading-wave-dots', '.wave-item', 5],
+	['wavedots', '.loading-wave-dots', '.wave-item', 5]
 ];
 
 for (const [type, containerSelector, itemSelector, expectedCount] of cases) {

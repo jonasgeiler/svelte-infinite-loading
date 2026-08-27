@@ -1,6 +1,7 @@
 <script>
 	import { onDestroy, onMount, tick, untrack } from 'svelte';
 	import Spinner from './Spinner.svelte';
+
 	/** @import { InfiniteLoadingProps, InfiniteLoadingEvents, InfiniteLoadingSnippets } from './types.js'; */
 
 	const THROTTLE_LIMIT = 50;
@@ -20,9 +21,8 @@
 		'  ...',
 		'  <!-- set forceUseInfiniteWrapper as css selector of the real scroll wrapper -->',
 		'  <InfiniteLoading forceUseInfiniteWrapper=".infinite-wrapper" />',
-		'</div>',
+		'</div>'
 	].join('\n');
-
 
 	/** @type {AddEventListenerOptions} */
 	const eventListenerOptions = { passive: true };
@@ -42,13 +42,15 @@
 				this.caches.push(fn);
 
 				// save timer for current handler
-				this.timers.push(setTimeout(() => {
-					fn();
+				this.timers.push(
+					setTimeout(() => {
+						fn();
 
-					// empty cache and timer
-					this.caches.splice(this.caches.indexOf(fn), 1);
-					this.timers.shift();
-				}, THROTTLE_LIMIT));
+						// empty cache and timer
+						this.caches.splice(this.caches.indexOf(fn), 1);
+						this.timers.shift();
+					}, THROTTLE_LIMIT)
+				);
 			}
 		},
 
@@ -61,7 +63,7 @@
 
 			// empty caches
 			this.caches = [];
-		},
+		}
 	};
 
 	const loopTracker = {
@@ -85,12 +87,12 @@
 				console.error(ERROR_INFINITE_LOOP);
 				this.isChecked = true;
 			}
-		},
+		}
 	};
 
 	/** @typedef {HTMLElement & { _infiniteScrollHeight?: number }} ScrollStorageElement */
 	const scrollBarStorage = {
-		key: /** @type {const} */('_infiniteScrollHeight'),
+		key: /** @type {const} */ ('_infiniteScrollHeight'),
 
 		/**
 		 * @param {Window | HTMLElement} element
@@ -98,8 +100,8 @@
 		 */
 		getScrollElement(element) {
 			return element === window
-				? /** @type {ScrollStorageElement} */(document.documentElement)
-				: /** @type {ScrollStorageElement} */(element);
+				? /** @type {ScrollStorageElement} */ (document.documentElement)
+				: /** @type {ScrollStorageElement} */ (element);
 		},
 
 		/**
@@ -134,7 +136,7 @@
 				// remove scroll height
 				delete element[this.key];
 			}
-		},
+		}
 	};
 
 	/**
@@ -142,15 +144,15 @@
 	 * @returns {boolean}
 	 */
 	function isVisible(element) {
-		return !!element && (element.offsetWidth + element.offsetHeight) > 0;
+		return !!element && element.offsetWidth + element.offsetHeight > 0;
 	}
 
 	/** @enum {number} */
 	const STATUS = {
-		READY:    0,
-		LOADING:  1,
+		READY: 0,
+		LOADING: 1,
 		COMPLETE: 2,
-		ERROR:    3,
+		ERROR: 3
 	};
 
 	/** @type {InfiniteLoadingProps & InfiniteLoadingEvents & InfiniteLoadingSnippets} */
@@ -169,7 +171,7 @@
 		spinner: spinnerSnippet,
 		noResults: noResultsSnippet,
 		noMore: noMoreSnippet,
-		error: errorSnippet,
+		error: errorSnippet
 	} = $props();
 
 	let isFirstLoad = $state(true); // save the current loading whether it is the first loading
@@ -208,7 +210,8 @@
 			// force re-compute computed properties to fix the problem of get slot text delay
 			await tick();
 
-			if (scrollParent) scrollParent.removeEventListener('scroll', scrollHandler, eventListenerOptions);
+			if (scrollParent)
+				scrollParent.removeEventListener('scroll', scrollHandler, eventListenerOptions);
 		},
 
 		reset: () => {
@@ -230,9 +233,8 @@
 		error: () => {
 			status = STATUS.ERROR;
 			throttler.reset();
-		},
+		}
 	};
-
 
 	/**
 	 * @param {Event} [event]
@@ -287,9 +289,10 @@
 		}
 
 		const infiniteElementOffsetTopFromBottom = thisElement.getBoundingClientRect().top;
-		const scrollElementOffsetTopFromBottom = scrollParent === window
-			? window.innerHeight
-			: /** @type {HTMLElement} */ (scrollParent).getBoundingClientRect().bottom;
+		const scrollElementOffsetTopFromBottom =
+			scrollParent === window
+				? window.innerHeight
+				: /** @type {HTMLElement} */ (scrollParent).getBoundingClientRect().bottom;
 		return infiniteElementOffsetTopFromBottom - scrollElementOffsetTopFromBottom;
 	}
 
@@ -305,15 +308,21 @@
 		let result;
 
 		if (typeof forceUseInfiniteWrapper === 'string') {
-			result = /** @type {HTMLElement} */(document.querySelector(forceUseInfiniteWrapper));
+			result = /** @type {HTMLElement} */ (document.querySelector(forceUseInfiniteWrapper));
 		}
 
 		if (!result) {
 			if (element.tagName === 'BODY') {
 				result = window;
-			} else if (!forceUseInfiniteWrapper && ['scroll', 'auto'].indexOf(getComputedStyle(element).overflowY) > -1) {
+			} else if (
+				!forceUseInfiniteWrapper &&
+				['scroll', 'auto'].indexOf(getComputedStyle(element).overflowY) > -1
+			) {
 				result = element;
-			} else if (element.hasAttribute('infinite-wrapper') || element.hasAttribute('data-infinite-wrapper')) {
+			} else if (
+				element.hasAttribute('infinite-wrapper') ||
+				element.hasAttribute('data-infinite-wrapper')
+			) {
 				result = element;
 			}
 		}
@@ -405,8 +414,8 @@
 				{@render errorSnippet(attemptLoad)}
 			{:else}
 				Something went wrong. Please retry later.
-				<br>
-				<button class="btn-try-infinite" onclick={() => void attemptLoad()}>
+				<br />
+				<button type="button" class="btn-try-infinite" onclick={() => void attemptLoad()}>
 					Retry
 				</button>
 			{/if}
@@ -416,21 +425,21 @@
 
 <style>
 	.infinite-loading-container {
-		clear:      both;
+		clear: both;
 		text-align: center;
 	}
 
 	.btn-try-infinite {
-		margin-top:    5px;
-		padding:       5px 10px;
-		color:         #999;
-		font-size:     14px;
-		line-height:   1;
-		background:    transparent;
-		border:        1px solid #ccc;
+		margin-top: 5px;
+		padding: 5px 10px;
+		color: #999;
+		font-size: 14px;
+		line-height: 1;
+		background: transparent;
+		border: 1px solid #ccc;
 		border-radius: 3px;
-		outline:       none;
-		cursor:        pointer;
+		outline: none;
+		cursor: pointer;
 	}
 
 	.btn-try-infinite:not(:active):hover {

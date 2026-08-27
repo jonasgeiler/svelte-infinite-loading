@@ -1,5 +1,5 @@
+import { expect, test } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { test, expect } from 'vitest';
 import InfiniteLoading from './InfiniteLoading.svelte';
 
 // Simple case: onInfinite immediately completes -> show "No results." (first load)

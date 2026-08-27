@@ -1,9 +1,9 @@
 <script>
-	import readme from '../../README.md?raw';
 	import { marked } from 'marked';
 	import { baseUrl } from 'marked-base-url';
-	import { base } from '$app/paths';
 	import { gfmHeadingId } from 'marked-gfm-heading-id';
+	import { base } from '$app/paths';
+	import readme from '../../README.md?raw';
 
 	marked.use(baseUrl(base));
 	marked.use(gfmHeadingId());

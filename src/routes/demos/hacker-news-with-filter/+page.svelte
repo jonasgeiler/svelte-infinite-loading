@@ -1,6 +1,6 @@
 <script>
-	import InfiniteLoading from '$lib/InfiniteLoading.svelte';
 	import { asset } from '$app/paths';
+	import InfiniteLoading from '$lib/InfiniteLoading.svelte';
 
 	const api = 'https://hn.algolia.com/api/v1/search_by_date?tags=story';
 
@@ -13,8 +13,8 @@
 	/** @type {import('$lib/types').InfiniteEvent} */
 	const infiniteHandler = ({ loaded, complete }) => {
 		fetch(`${api}&page=${page}&tags=${newsType}`)
-			.then(response => response.json())
-			.then(data => {
+			.then((response) => response.json())
+			.then((data) => {
 				if (data.hits.length) {
 					page += 1;
 					list = [...list, ...data.hits];
@@ -23,7 +23,7 @@
 					complete();
 				}
 			});
-	}
+	};
 
 	function changeType() {
 		page = 1;
@@ -93,8 +93,7 @@
 			<div class="truncate">
 				<a
 					class="inline link"
-					href={item.url ||
-									`https://news.ycombinator.com/item?id=${item.story_id}`}
+					href={item.url || `https://news.ycombinator.com/item?id=${item.story_id}`}
 					rel="external noopener noreferrer nofollow"
 					target="_blank"
 				>
@@ -102,10 +101,10 @@
 				</a>
 				{#if item.url}
 					(<a
-					class="hacker-news-link"
-					href="https://news.ycombinator.com/from?site={formatSite(item.url)}"
-					target="_blank">{formatSite(item.url)}</a
-				>)
+						class="hacker-news-link"
+						href="https://news.ycombinator.com/from?site={formatSite(item.url)}"
+						target="_blank">{formatSite(item.url)}</a
+					>)
 				{/if}
 			</div>
 			<div class="truncate">
@@ -126,7 +125,7 @@
 					class="hacker-news-link"
 					target="_blank"
 					href="https://news.ycombinator.com/item?id={item.story_id}"
-				>{item.num_comments} comments</a
+					>{item.num_comments} comments</a
 				>
 			</div>
 		</article>

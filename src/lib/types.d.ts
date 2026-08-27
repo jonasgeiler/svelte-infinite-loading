@@ -1,9 +1,7 @@
 import { Snippet } from 'svelte';
 
-
 export type SpinnerType = 'default' | 'bubbles' | 'circles' | 'spiral' | 'wavedots';
 export type DirectionType = 'top' | 'bottom';
-
 
 /**
  * InfiniteLoading props
@@ -56,7 +54,6 @@ export interface InfiniteLoadingProps {
 	identifier?: any;
 }
 
-
 /**
  * InfiniteLoading snippets
  */
@@ -88,7 +85,6 @@ export interface InfiniteLoadingSnippets {
 	 */
 	spinner: Snippet<[boolean]>;
 }
-
 
 /**
  * StateChanger object
@@ -122,7 +118,6 @@ export interface StateChanger {
  * Infinite event
  */
 type InfiniteEvent = (detail: StateChanger) => Promise<void> | void;
-
 
 /**
  * InfiniteLoading events

@@ -27,29 +27,32 @@ This is heavily inspired by [vue-infinite-loading](https://peachscript.github.io
 - 2-directional support
 - Load result message display
 
-
 ## Installation
 
 > If you're using this component in a Sapper application, make sure to install the package to `devDependencies`!  
 > [More Details](https://github.com/sveltejs/sapper-template#using-external-components)
 
 With npm:
+
 ```shell
 $ npm install svelte-infinite-loading
 ```
 
 With yarn:
+
 ```shell
 $ yarn add svelte-infinite-loading
 ```
 
 With [pnpm](https://pnpm.js.org/) (recommended):
+
 ```shell
 $ npm i -g pnpm
 $ pnpm install svelte-infinite-loading
 ```
 
 From CDN (via [unpkg](https://unpkg.com/)):
+
 ```html
 <!-- UMD -->
 <script src="https://unpkg.com/svelte-infinite-loading@^1/dist/svelte-infinite-loading.js"></script>
@@ -67,11 +70,9 @@ From CDN (via [unpkg](https://unpkg.com/)):
 
 For more information on how to use this library, check the [documentation](https://github.com/jonasgeiler/svelte-infinite-loading/wiki)!
 
-
 ## Documentation
 
 You can find the documentation in the [repository wiki](https://github.com/jonasgeiler/svelte-infinite-loading/wiki)
-
 
 ## License
 

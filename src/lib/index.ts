@@ -1,3 +1,4 @@
+export { default } from './InfiniteLoading.svelte';
 export type {
 	DirectionType,
 	InfiniteEvent,
@@ -5,7 +6,5 @@ export type {
 	InfiniteLoadingProps,
 	InfiniteLoadingSnippets,
 	SpinnerType,
-	StateChanger,
+	StateChanger
 } from './types.d.ts';
-
-export { default } from './InfiniteLoading.svelte';
