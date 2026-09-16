@@ -57,7 +57,7 @@ jobs:
         # with:
         # > **Note**
 
-      - name: Stage publishing package to npmjs.com
+      - name: Publishing package to npmjs.com
         env:
           TAG: ${{ env.IS_PRERELEASE == 'true' && 'next' || 'latest' }}
         run: pnpm publish --access=public --no-git-checks --tag="${TAG}"
